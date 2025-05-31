@@ -1,0 +1,66 @@
+<%- include("../components/head.ejs") %>
+
+    <%- include("../components/Header.ejs") %>
+
+        <div class="product-cart-flex-container">
+            <div class="product-cart-title">
+                <p style="font-weight: bold;"><a style="text-decoration: none; color: rgb(160, 1, 1);" href="/"> Trang chủ </a> > Giỏ hàng của bạn</p>
+            </div>
+
+            <div class="product-cart-grid-container">
+                <table class="product-cart-table-1">
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Hình ảnh</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </tr>
+
+                    <tr>
+                        <td>Acer Nitro 5</td>
+                        <td><img src="/fakedata/productimage/product1.webp" alt=""></td>
+                        <td>1</td>
+                        <td style="font-weight: bold; color: red;">10.000.000 <sup>đ</sup></td>
+                    </tr>
+                </table>
+
+                <div class="product-cart-payment">
+                    <form class="cart-payment-coupon">
+                        <input class="cart-payment-coupon-input" type="text" name="" id="" placeholder="Mã giảm giá">
+                        <input class="cart-payment-coupon-submit" type="submit" value="Áp dụng">
+                    </form>
+                    <form action="/" method="get" class="cart-payment">
+                        <div class="product-cart-table-container">
+                            <table class="product-cart-table-2">
+                                <tr>
+                                    <td>Tạm tính</td>
+                                    <td
+                                        style="text-align: right; font-weight: bold; color: rgb(142, 138, 138); font-size:medium;">
+                                        10.000.000 <sup>đ</sup></td>
+                                </tr>
+                                <tr>
+                                    <td>Giảm giá</td>
+                                    <td
+                                        style="text-align: right; font-weight: bold; color: rgb(142, 138, 138); font-size:medium">
+                                        0 <sup>đ</sup></td>
+                                </tr>
+                                <tr>
+                                    <td>Thành tiền</td>
+                                    <td style="font-weight: bold; color: red; text-align: right;">10.000.000
+                                        <sup>đ</sup></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div>
+                            <button class="product-cart-payment-button" type="submit">Tiến hành đặt hàng</button>
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+
+        <%- include("../components/Footer.ejs") %>
+
+            <%- include("../components/foot.ejs") %>
