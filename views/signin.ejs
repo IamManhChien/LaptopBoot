@@ -1,4 +1,4 @@
-<%- include("../components/head.ejs") %>
+<%- include("components/head.ejs") %>
 
     <section class="h-100 gradient-form" style="background-color: #eee;">
         <div class="container py-5 h-100">
@@ -16,7 +16,7 @@
                                         </a>
                                     </div>
 
-                                    <form action="/SignInDone" method="get">
+                                    <form action="/signindone" method="get">
 
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label" for="form2Example11">Email</label>
@@ -38,7 +38,7 @@
                                         </div>
                                     </form>
 
-                                    <form action="/SignUp" method="get">
+                                    <form action="/signup" method="get">
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">Bạn chưa có tài khoản?</p>
                                             <button data-mdb-button-init data-mdb-ripple-init
@@ -58,4 +58,4 @@
         </div>
     </section>
 
-    <%- include("../components/foot.ejs") %>
+    <%- include("components/foot.ejs") %>

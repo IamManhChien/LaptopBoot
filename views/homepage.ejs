@@ -1,0 +1,107 @@
+<%- include("components/head.ejs") %>
+
+<%- include("components/header.ejs") %>
+
+<%- include("components/carousel.ejs") %>
+
+<div class="slider-outcontainer swiper">
+    <div class="slider-title">
+        <h3>Sản phẩm nổi bật</h3>
+    </div>
+    <div class="slider-container swiper-wrapper ">
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+        <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+        <div class="slider-item swiper-slide">
+            <img src="/fakedata/productimage/product1.webp" alt="">
+            <h5>Laptop Acer</h4>
+            <h5 class="slider-item-price">10.000.000</h5>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div>
+
+<div class="product-grid-container">
+    <div class="product-grid-title">
+        <h4>Laptop</h4>
+    </div>
+    <div class="product-grid-items">
+        <% pcs.forEach(function(item) { %>
+             <div class="product-grid-item">
+            <img src="<%= item.img%>" alt="">
+             <h5><%= item.ten %></h5>
+            <h5 class="slider-item-price"><%= item.gia %></h5>
+             </div>
+        <% }); %>
+    </div>
+</div>
+
+<div class="product-grid-container">
+    <div class="product-grid-title">
+        <h4>Camera</h4>
+    </div>
+    <div class="product-grid-items">
+        <% cameras.forEach(function(item) { %>
+             <div class="product-grid-item">
+            <img src="<%= item.img%>" alt="">
+             <h5><%= item.ten %></h5>
+            <h5 class="slider-item-price"><%= item.gia %></h5>
+             </div>
+        <% }); %>
+    </div>
+</div>
+
+<%- include("components/footer.ejs") %>
+
+<%- include("components/foot.ejs") %>

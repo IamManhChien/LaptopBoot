@@ -224,10 +224,14 @@ body {
 .product-grid-item{
     background-color: white;
     display: block;
-    width: 100%;
+    width: 180px;
+    height: 450px;
     margin: 20px;
     border-radius: 10px;
     cursor: pointer;
+    word-wrap: break-word; /* tự ngắt dòng nếu cần */
+    overflow-wrap: break-word; /* tương tự, ngắt từ dài */
+    white-space: normal;  
 }
 
 .product-grid-item h5{
@@ -236,8 +240,9 @@ body {
 }
 
 .product-grid-item img{
-    width: 70%;
-    margin-left: 15%;
+    margin-top: 10%;
+    width: 160px;
+    height: 160px;
 }
 
 .product-grid-item img:hover {
