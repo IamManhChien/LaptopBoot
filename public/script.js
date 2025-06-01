@@ -25,3 +25,9 @@ document.querySelectorAll('.product-grid-item').forEach(product => {
     window.location.href = '/Product';
   });
 });
+
+document.querySelectorAll('.slider-item').forEach(product => {
+  product.addEventListener('click', function () {
+    window.location.href = '/Product';
+  });
+});
