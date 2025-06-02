@@ -39,7 +39,13 @@ app.get("/signUp", async(req, res) =>{
 })
 
 app.get("/product", async(req, res) =>{
-    res.render("product.ejs")
+    try {
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    const cameras = await axios.get(`${API_URL}/camera`);
+    res.render("product.ejs",{pcs:pcs.data,cameras:cameras.data});
+  } catch (error) {
+    console.log(error);
+  }
 })
 
 app.listen(port, () => {
