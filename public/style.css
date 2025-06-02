@@ -196,7 +196,6 @@ body {
 }
 
 /*Style dành cho productList*/
-
 .product-grid-container{
     width: 76%;
     margin-left: 12%;
@@ -222,32 +221,34 @@ body {
     height: 335px;
 }
 
-.product-grid-item-name{
-   height: 100px;
+.product-grid-item-name {
+   height: 80px;
    margin-top: 20px;
    margin-left: 20px;
+   margin-right: 20px;
    font-weight: bold;
    font-size: small;
    text-wrap: wrap;
    word-break: break-all;
 }
 
-.product-grid-item-price{
-    height: 25px;
+.product-grid-item-price {
+    height: 40px;
     margin-left: 20px;
     margin-top: 5px;
     color: red;
     font-weight: bold;
 }
 
-.product-grid-item img{
+.product-grid-item img {
     width: 150px;
     height: 150px;
     margin-left: 50px;
     margin-right: 50px;
-    margin-top: 8px;
+    margin-top: 20px;
     object-fit: contain;
 }
+
 
 .product-grid-item img:hover {
     transform: translateY(-10px);
@@ -259,6 +260,20 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1rem;
 }
+
+/* Style của buttonHeader*/
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  color: white; /* hoặc màu bạn muốn */
+  cursor: pointer;
+  
+}
+
+.transparent-button:hover{
+    font-weight: bold;
+}
+
 
 /* Style của buttonHeader*/
 .transparent-button {
