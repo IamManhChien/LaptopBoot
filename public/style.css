@@ -143,76 +143,62 @@ body {
 
 /*Style dành cho các ProductSlide */
 
-.slider-outcontainer {
-    width: 70%;
+.slider-outcontainer{
+    width: 86%;
+    margin-left: 7%;
+    height: 350px;
+    background: linear-gradient(to bottom, red, rgba(202, 99, 99, 0));
     margin-top: 50px;
-    margin-left: 15%;
-    overflow: hidden;
-    padding: 20px 0;
-}
-
-.slider-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.slider-container {
-    box-sizing: border-box;
-    display: flex;
-    flex: 1 1 0%;
-    gap: 20px;
-    width: 790px;
-    height: 392px;
-    border: 0 solid rgb(229, 231, 235);
-    color: rgb(0, 0, 0);
-    column-gap: 20px;
-    row-gap: 20px;
-    tab-size: 4;
-    text-size-adjust: 100%;
-    unicode-bidi: isolate;
-}
-
-.slider-item {
-    box-sizing: border-box;
-    display: block;
-    cursor: pointer;
-    width: 100px;
-    height: 300px;
-    background-color: white;
-
     border-radius: 10px;
-
-    color: rgb(0, 0, 0);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.slider-item > img{
+.slider-title{
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: large;
+}
+
+.slider-item{
+    height: 45px;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.slider-item img{
     width: 70%;
     margin-left: 15%;
-    object-fit: cover;
-    
+    object-fit: contain;
+    height: 60%;
 }
 
-.slider-item img:hover {
+.slider-item img:hover{
     transform: translateY(-10px);
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease; 
 }
 
-.slider-item h5 {
-    object-fit: cover;
-    margin: 20px;
+.slider-item-name{
+    margin-left: 20px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 .slider-item-price{
-    color: red;
+    margin-left: 20px;
     font-weight: bold;
+    color: red;
+
 }
 
 /*Style dành cho productList*/
-
 .product-grid-container{
-    width: 70%;
-    margin-left: 15%;
+    width: 76%;
+    margin-left: 12%;
     margin-top: 100px;
 }
 
@@ -221,28 +207,46 @@ body {
     justify-content: center;
 }
 
+.product-grid-items{
+    width: 100%;
+}
+
 .product-grid-item{
     background-color: white;
     display: block;
-    width: 200px;
-    height: 450px;
-    margin: 20px;
+    width: 250px;
+    margin: 13px;
     border-radius: 10px;
     cursor: pointer;
-    word-wrap: break-word; /* tự ngắt dòng nếu cần */
-    overflow-wrap: break-word; /* tương tự, ngắt từ dài */
-    white-space: normal;  
+    height: 335px;
 }
 
-.product-grid-item h5{
-    object-fit: cover;
-    margin: 20px;
+.product-grid-item-name{
+   height: 80px;
+   margin-top: 20px;
+   margin-left: 20px;
+   margin-right: 20px;
+   font-weight: bold;
+   font-size: small;
+   text-wrap: wrap;
+   word-break: break-all;
+}
+
+.product-grid-item-price{
+    height: 40px;
+    margin-left: 20px;
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
 }
 
 .product-grid-item img{
-    margin-top: 10%;
-    width: 200px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 20px;
+    object-fit: contain;
 }
 
 .product-grid-item img:hover {
@@ -255,6 +259,20 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 1rem;
 }
+
+/* Style của buttonHeader*/
+.transparent-button {
+  background-color: transparent;
+  border: none;
+  color: white; /* hoặc màu bạn muốn */
+  cursor: pointer;
+  
+}
+
+.transparent-button:hover{
+    font-weight: bold;
+}
+
 
 /* Style của buttonHeader*/
 .transparent-button {
