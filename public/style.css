@@ -170,11 +170,13 @@ body {
     cursor: pointer;
 }
 
-.slider-item img{
+.slider-item-image{
     width: 70%;
+    height: 150px;
     margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 15px;
     object-fit: contain;
-    height: 60%;
 }
 
 .slider-item img:hover{
@@ -183,15 +185,23 @@ body {
 }
 
 .slider-item-name{
-    margin-left: 20px;
-    font-weight: bold;
-    margin-top: 20px;
+    height: 80px;
+   margin-top: 10px;
+   margin-left: 10px;
+   margin-right: 10px;
+   margin-bottom: 5px;
+   font-weight: bold;
+   font-size: small;
+   text-wrap: wrap;
+   word-break: break-all;;
 }
 
 .slider-item-price{
-    margin-left: 20px;
-    font-weight: bold;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
     color: red;
+    font-weight: bold;
 
 }
 
