@@ -16,7 +16,8 @@ app.get("/", async (req, res) => {
     try {
     const pcs = await axios.get(`${API_URL}/laptop`);
     const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("homepage.ejs",{pcs:pcs.data,cameras:cameras.data});
+    const tops = await axios.get(`${API_URL}/random`);
+    res.render("homepage.ejs",{pcs:pcs.data,cameras:cameras.data,tops:tops.data});
   } catch (error) {
     console.log(error);
   }
@@ -38,13 +39,16 @@ app.get("/signUp", async(req, res) =>{
     res.render("signup.ejs")
 })
 
-app.get("/product", async(req, res) =>{
-    try {
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("product.ejs",{pcs:pcs.data,cameras:cameras.data});
+app.get("/product/:id", async(req, res) =>{
+  try {
+    const result = await axios.get(`${API_URL}/product/`, {params: {id: req.params.id}});
+    if (result.data.length === 0) {
+      return res.status(404).send('Sản phẩm không tồn tại');
+    }
+    res.render('Product.ejs', { product: result.data[0] });
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
   }
 })
 
