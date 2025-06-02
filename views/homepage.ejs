@@ -9,41 +9,31 @@
         <p>SẢN PHẨM NỔI BẬT</p>
     </div>
     <div style="height: 300px;" class="slider-container swiper-wrapper ">
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="<%= pcs[1].img%>" alt="">
-            <p class="slider-item-name"><%= pcs[1].ten %></p>
-            <p class="slider-item-price"><%= pcs[1].gia %></p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
-        <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
-            <img class="slider-item-image" src="/fakedata/productimage/product1.webp" alt="">
-            <p class="slider-item-name">Laptop Acer</p>
-            <p class="slider-item-price">10.000.000</p>
-        </div>
+
+        <% pcs.forEach(function(item) { %>
+            <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
+                <img class="slider-item-image" src="<%= item.img%>" alt="">
+                <p class="slider-item-name">
+                    <%= item.ten %>
+                </p>
+                <p class="slider-item-price">
+                    <%= item.gia %>
+                </p>
+            </div>
+            <% }); %>
+
+        <% cameras.forEach(function(item) { %>
+            <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
+                <img class="slider-item-image" src="<%= item.img%>" alt="">
+                <p class="slider-item-name">
+                    <%= item.ten %>
+                </p>
+                <p class="slider-item-price">
+                    <%= item.gia %>
+                </p>
+            </div>
+            <% }); %>
+
     </div>
     <div class="swiper-pagination"></div>
 
