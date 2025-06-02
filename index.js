@@ -4,7 +4,7 @@ import pg from "pg";
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "laptopBoot",
+  database: "postgres",
   password: "Abc123456",
   port: 5432,
 });
@@ -12,9 +12,6 @@ db.connect();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 const port = 4000;
-let pc =[{data : "Du lieu PC"}]
-let cameras =[{data : "Du lieu camera"}]
-let accessories =[{data : "Du lieu linh kien"}]
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
