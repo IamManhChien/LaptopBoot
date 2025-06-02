@@ -15,11 +15,15 @@
                     <p><%= product.mota  %></p>
                 </div>
                 <div class="product-page-decision-button">
+                    <%if(product.soluong>0){%>
                     <form class="product-page-last-decision" action="/"><button class="product-page-button"
                             type="submit"><img class="product-page-decision-cart-img" height="100%"
                                 src="/icons/cart.png" alt=""> Thêm vào giỏ hàng</button></form>
                     <form class="product-page-last-decision" action="/"><button class="product-page-button" type="submit">Mua
                             ngay</button></form>
+                    <%}else{%>
+                    <form class="product-page-last-decision" action="/"><button disabled class="product-page-button" type="">Sản phẩm đang tạm hết hàng !</button></form>
+                    <%}%>    
                 </div>
             </div>
         </div>
