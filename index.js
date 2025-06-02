@@ -23,6 +23,10 @@ app.get("/camera",async (req,res)=>{
     const result = await db.query("SELECT * FROM products WHERE type='camera'");
     res.json(result.rows);
 });
+app.get("/random",async (req,res)=>{
+    const result = await db.query("SELECT * FROM products ORDER BY RANDOM() LIMIT 8;");
+    res.json(result.rows);
+});
 app.get("/product/",async (req,res)=>{
     const result = await db.query("SELECT * FROM products WHERE id= ($1)",[req.query.id]);
     res.json(result.rows);

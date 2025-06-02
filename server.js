@@ -16,7 +16,8 @@ app.get("/", async (req, res) => {
     try {
     const pcs = await axios.get(`${API_URL}/laptop`);
     const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("homepage.ejs",{pcs:pcs.data,cameras:cameras.data});
+    const tops = await axios.get(`${API_URL}/random`);
+    res.render("homepage.ejs",{pcs:pcs.data,cameras:cameras.data,tops:tops.data});
   } catch (error) {
     console.log(error);
   }
