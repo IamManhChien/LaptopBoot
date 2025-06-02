@@ -78,11 +78,13 @@
     </div>
     <div class="product-grid-items">
         <% pcs.forEach(function(item) { %>
-             <div class="product-grid-item">
+            <a href="/product/<%= item.id %>" style="text-decoration: none; color: inherit;">
+            <div class="product-grid-item" href="">
             <img src="<%= item.img%>" alt="">
-             <h5><%= item.ten %></h5>
+            <h5><%= item.ten %></h5>
             <h5 class="slider-item-price"><%= item.gia %></h5>
              </div>
+            </a>
         <% }); %>
     </div>
 </div>
@@ -93,11 +95,13 @@
     </div>
     <div class="product-grid-items">
         <% cameras.forEach(function(item) { %>
+            <a href="/product/<%= item.id %>" style="text-decoration: none; color: inherit;">
              <div class="product-grid-item">
             <img src="<%= item.img%>" alt="">
              <h5><%= item.ten %></h5>
             <h5 class="slider-item-price"><%= item.gia %></h5>
              </div>
+            </a>
         <% }); %>
     </div>
 </div>

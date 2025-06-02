@@ -38,8 +38,17 @@ app.get("/signUp", async(req, res) =>{
     res.render("signup.ejs")
 })
 
-app.get("/product", async(req, res) =>{
-    res.render("product.ejs")
+app.get("/product/:id", async(req, res) =>{
+  try {
+    const result = await axios.get(`${API_URL}/product/`, {params: {id: req.params.id}});
+    if (result.data.length === 0) {
+      return res.status(404).send('Sản phẩm không tồn tại');
+    }
+    res.render('Product.ejs', { product: result.data[0] });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
 })
 
 app.listen(port, () => {
