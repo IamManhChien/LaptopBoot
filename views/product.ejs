@@ -3,18 +3,18 @@
     <%- include("components/header.ejs") %>
 
         <div class="product-page-grid-container">
+            <div>
             <img class="product-page-img" src="<%= pcs[1].img%>" alt="">
+            <img class="product-page-policy" src="/images/chinhsach.png" alt="">
+            </div>
             <div class="product-page-decision">
                 <div class="product-page-name">
-                    <p style="font-weight: bold;"><%= pcs[2].ten %></p>
+                    <p style="font-weight: bold;"><%= pcs[3].ten %></p>
                 </div>
                 <div class="product-page-price">
                     <p style="font-weight: bold; color: red;"><%= pcs[1].gia %></p>
                 </div>
-                <p style="height: 200px;" class="product-page-description">Acer Nitro 5 được đánh giá cao về hiệu năng trong tầm giá. Với cấu
-                    hình mạnh mẽ, máy có thể chơi
-                    tốt các tựa game phổ biến ở thiết lập đồ họa cao. Ngoài ra, khả năng nâng cấp linh hoạt giúp
-                    người dùng dễ dàng tùy chỉnh theo nhu cầu.</p>
+                <p style="height: 200px;" class="product-page-description"><%= pcs[1].mota %></p>
                 <div class="product-page-decision-button">
                     <form class="product-page-last-decision" action="/"><button class="product-page-button"
                             type="submit"><img class="product-page-decision-cart-img" height="100%"
