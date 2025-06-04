@@ -269,8 +269,8 @@ border-bottom-right-radius: .3rem;
 /* Style dành cho Cart */
 
 .product-cart-flex-container{
-    width: 70%;
-    margin-left: 15%;
+    width: 80%;
+    margin-left: 10%;
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -280,6 +280,7 @@ border-bottom-right-radius: .3rem;
 
 .product-cart-title{
     width: 100%;
+    height: 20px;
 }
 
 .product-cart-grid-container{
@@ -296,11 +297,13 @@ border-bottom-right-radius: .3rem;
 
 .product-cart-payment{
     margin-left: 100px;
+    height: 350px;
 }
 
 .cart-payment-coupon {
     position: relative;
     width: 380px;
+    height: 40px;
     border: 0.5px solid #c6c2c2; 
 }
 .cart-payment-coupon-input {
@@ -327,6 +330,7 @@ border-bottom-right-radius: .3rem;
     margin-top: 25px;
     width: 100%;
     margin-left: 12px;
+    height: 200px;
 }
 
 .product-cart-table-2 td {
