@@ -20,17 +20,14 @@ const swiper = new Swiper('.swiper', {
 });
 
 
-document.querySelectorAll('.product-grid-item').forEach(product => {
+document.querySelectorAll('.slider-item').forEach(product => {
   product.addEventListener('click', function () {
-    window.location.href = '/Product';
+    const id = this.dataset.id;
+    window.location.href = `/product/${id}`;
   });
 });
 
-document.querySelectorAll('.slider-item').forEach(product => {
-  product.addEventListener('click', function () {
-    window.location.href = '/Product';
-  });
-});
+
 
 
 // ĐOẠN CODE SỬ DỤNG NẾU THÊM ID VÀO CÁC PHẦN
