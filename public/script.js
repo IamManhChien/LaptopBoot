@@ -27,24 +27,3 @@ document.querySelectorAll('.slider-item').forEach(product => {
   });
 });
 
-
-
-
-// ĐOẠN CODE SỬ DỤNG NẾU THÊM ID VÀO CÁC PHẦN
-// document.querySelectorAll('.product-grid-item').forEach(product => {
-//   product.addEventListener('click', function () {
-//     const id = product.getAttribute('data-id');
-//     if (id) {
-//       window.location.href = `/Product?id=${id}`;
-//     }
-//   });
-// });
-
-// document.querySelectorAll('.slider-item').forEach(product => {
-//   product.addEventListener('click', function () {
-//     const id = product.getAttribute('data-id');
-//     if (id) {
-//       window.location.href = `/Product?id=${id}`;
-//     }
-//   });
-// });

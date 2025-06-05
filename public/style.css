@@ -353,6 +353,19 @@ border-bottom-right-radius: .3rem;
     background-color: #aa161b;
 }
 
+.delete-product {
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    background-color: rgb(228, 83, 83);
+    color: white;
+    border: none;
+}
+
+.delete-product:hover{
+    background-color: #aa161b;
+}
+
 /*Style cho product page */
 
 .product-page-grid-container{
@@ -561,6 +574,5 @@ border-bottom-right-radius: .3rem;
     object-fit: fill;
     cursor: pointer;
 }
-
 
 
