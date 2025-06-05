@@ -147,7 +147,7 @@ body {
     width: 86%;
     margin-left: 7%;
     height: 350px;
-    background: linear-gradient(to bottom, red, rgba(202, 99, 99, 0));
+    background: linear-gradient(to bottom, rgb(252, 55, 55), rgba(202, 99, 99, 0));
     margin-top: 50px;
     border-radius: 10px;
     padding-left: 20px;
@@ -159,7 +159,19 @@ body {
     font-weight: bold;
     margin-top: 10px;
     margin-left: 10px;
-    font-size: large;
+    font-size: larger;
+    height: 50px;
+}
+
+.slider-title2{
+    color: black;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: larger; 
+    margin-top: 20px;
+    height: 70px;
+    align-items: center;
 }
 
 .slider-item{
@@ -205,71 +217,6 @@ body {
 
 }
 
-/*Style dành cho productList*/
-.product-grid-container{
-    width: 76%;
-    margin-left: 12%;
-    margin-top: 100px;
-}
-
-.product-grid-title{
-    display: flex;
-    justify-content: center;
-}
-
-.product-grid-items{
-    width: 100%;
-}
-
-.product-grid-item{
-    background-color: white;
-    display: block;
-    width: 250px;
-    margin: 13px;
-    border-radius: 10px;
-    cursor: pointer;
-    height: 335px;
-}
-
-.product-grid-item-name {
-   height: 80px;
-   margin-top: 20px;
-   margin-left: 20px;
-   margin-right: 20px;
-   font-weight: bold;
-   font-size: small;
-   text-wrap: wrap;
-   word-break: break-all;
-}
-
-.product-grid-item-price {
-    height: 40px;
-    margin-left: 20px;
-    margin-top: 5px;
-    color: red;
-    font-weight: bold;
-}
-
-.product-grid-item img {
-    width: 150px;
-    height: 150px;
-    margin-left: 50px;
-    margin-right: 50px;
-    margin-top: 20px;
-    object-fit: contain;
-}
-
-
-.product-grid-item img:hover {
-    transform: translateY(-10px);
-    transition: transform 0.5s ease;
-}
-
-.product-grid-items{
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
-}
 
 /* Style của buttonHeader*/
 .transparent-button {
@@ -322,17 +269,18 @@ border-bottom-right-radius: .3rem;
 /* Style dành cho Cart */
 
 .product-cart-flex-container{
-    width: 70%;
-    margin-left: 15%;
+    width: 80%;
+    margin-left: 10%;
     margin-top: 50px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 100px;
+    margin-bottom: 150px;
 }
 
 .product-cart-title{
     width: 100%;
+    height: 20px;
 }
 
 .product-cart-grid-container{
@@ -349,11 +297,13 @@ border-bottom-right-radius: .3rem;
 
 .product-cart-payment{
     margin-left: 100px;
+    height: 350px;
 }
 
 .cart-payment-coupon {
     position: relative;
     width: 380px;
+    height: 40px;
     border: 0.5px solid #c6c2c2; 
 }
 .cart-payment-coupon-input {
@@ -380,6 +330,7 @@ border-bottom-right-radius: .3rem;
     margin-top: 25px;
     width: 100%;
     margin-left: 12px;
+    height: 200px;
 }
 
 .product-cart-table-2 td {
@@ -392,10 +343,14 @@ border-bottom-right-radius: .3rem;
     margin-left: 20px;
     margin-top: 40px;
     color: white;
-    background-color: #dc3545;
+    background-color: #da5764;
     height: 45px;
     border: hidden;
     border-radius: 5px;
+}
+
+.product-cart-payment-button:hover{
+    background-color: #aa161b;
 }
 
 /*Style cho product page */
@@ -421,9 +376,20 @@ border-bottom-right-radius: .3rem;
     object-fit: contain;
 }
 
+.product-page-policy{
+    height: 200px;
+    width: 70%;
+    margin-left: 15%;
+    object-fit: contain;
+}
+
 .product-page-name{
-    height: 90px;
+    height: 65px;
     margin-bottom: 20px;
+    text-wrap: warp;
+    word-break: break-all;
+    padding-right: 15px;
+    overflow: hidden;
 }
 
 .product-page-price{
@@ -434,11 +400,15 @@ border-bottom-right-radius: .3rem;
 .product-page-description{
     width: 100%;
     overflow: hidden;
+    text-wrap: wrap;
+    word-break: break-all;
+    padding-right: 15px;
 }
 
 .product-page-decision-button{
     width: 100%;
-    height: 123px;
+    height: 140px;
+    margin-top: 45px;
 }
 
 .product-page-decision{
@@ -473,10 +443,124 @@ border-bottom-right-radius: .3rem;
 }
 
 
+/* Style của footer */
+
+.footer-img-container{
+    height: 170px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    margin-top: 40px;
+}
+
+.footer-img{
+    width: 1200px;
+    height: 170px;
+    object-fit: contain;
+}
 
 
+/* Style của laptopbanner1 */
 
 
+.laptop-banner-container{
+    height: 650px;
+    width: 86%;
+    margin-left: 7%;
+    background-color: white;
+    border-radius: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 30px;
+}
+
+.laptop-banner-title{
+    width: 100%;
+    height: 40px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.laptop-banner-content{
+    height: 440px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 15px;
+    border-radius: 15px;
+}
+
+.laptop-banner-img1{
+    grid-area: 1/1/2/2;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    object-fit: fill;
+}
+
+.laptop-banner-img2{
+    grid-area: 1/2/2/3;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+   object-fit: fill;
+}
+
+.laptop-banner-img3{
+    grid-area: 2/1/3/3;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.laptop-banner-img4{
+    grid-area: 1/3/3/4;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+
+/* Style cho camera banner */
+
+.camera-banner{
+    width: 86%;
+    margin-left: 7%;
+    height: 270px;
+    padding: 7px;
+    background-color: white;
+    margin-top: 30px;
+    border-radius: 15px;
+}
+
+.camera-banner-title{
+    height: 36px;
+    width: 100%;
+    padding-left: 40px;
+}
+
+.camera-banner-content{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.camera-banner-content img{
+    width: 47%;
+    height: 205px;
+    border-radius: 20px;
+    padding: 4px;
+    object-fit: fill;
+    cursor: pointer;
+}
 
 
 

@@ -4,9 +4,11 @@
 
 <%- include("components/carousel.ejs") %>
 
+/*
+
 <div style=" height: 390px;padding-left: 20px; padding-right: 20px;" class="slider-outcontainer swiper">
     <div class="slider-title">
-        <p>SẢN PHẨM NỔI BẬT</p>
+        <h4>Đáng mua nhất hôm nay!</h4>
     </div>
     <div style="height: 300px;" class="slider-container swiper-wrapper ">
         <% tops.forEach(function(item) { %>
@@ -32,38 +34,64 @@
         class="swiper-button-next"></div>
 </div>
 
-<div class="product-grid-container">
-    <div class="product-grid-title">
-        <h4>Laptop</h4>
+<%- include("components/laptopbanner.ejs") %>
+
+<div style=" height: 420px;padding-left: 20px; padding-right: 20px; background: white;" class="slider-outcontainer swiper">
+    <div class="slider-title2">
+        <h4>Giải pháp Laptop toàn diện cho học tập & làm việc</h4>
     </div>
-    <div class="product-grid-items">
+    <div style="height: 300px;" class="slider-container swiper-wrapper ">
+
         <% pcs.forEach(function(item) { %>
-             <a href="/product/<%= item.id %>" style="text-decoration: none; color: inherit;">
-             <div class="product-grid-item">
-            <img src="<%= item.img%>" alt="">
-            <p class="product-grid-item-name"><%= item.ten %></p>
-            <p class="product-grid-item-price"><%= item.gia %></p>
-             </div>
-             </a>
-        <% }); %>
+            <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
+                <img class="slider-item-image" src="<%= item.img%>" alt="">
+                <p class="slider-item-name">
+                    <%= item.ten %>
+                </p>
+                <p class="slider-item-price">
+                    <%= item.gia %>
+                </p>
+            </div>
+            <% }); %>
     </div>
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div style="height: 70px; width: 45px; border-radius: 10px; background-color: rgba(128, 128, 128, 0.411); color: rgba(83, 81, 81, 0.664);"
+        class="swiper-button-prev"></div>
+    <div style="height: 75px; width: 45px; border-radius: 10px; background-color: rgba(128, 128, 128, 0.411); color: rgba(83, 81, 81, 0.664);"
+        class="swiper-button-next"></div>
 </div>
 
-<div class="product-grid-container">
-    <div class="product-grid-title">
-        <h4>Camera</h4>
+
+
+<%- include("components/camerabanner.ejs") %>
+
+<div style=" height: 420px;padding-left: 20px; padding-right: 20px; background: white " class="slider-outcontainer swiper">
+    <div class="slider-title2">
+        <h4>Bảo vệ ngôi nhà của bạn – Camera quan sát 24/7</h4>
     </div>
-    <div class="product-grid-items">
+    <div style="height: 300px;" class="slider-container swiper-wrapper ">
         <% cameras.forEach(function(item) { %>
-             <a href="/product/<%= item.id %>" style="text-decoration: none; color: inherit;">
-             <div class="product-grid-item">
-            <img src="<%= item.img%>" alt="">
-            <p class="product-grid-item-name"><%= item.ten %></p>
-            <p class="product-grid-item-price"><%= item.gia %></p>
-             </div>
-             </a>
-        <% }); %>
+            <div style="height: 300px; width: 186.6px;" class="slider-item swiper-slide">
+                <img class="slider-item-image" src="<%= item.img%>" alt="">
+                <p class="slider-item-name">
+                    <%= item.ten %>
+                </p>
+                <p class="slider-item-price">
+                    <%= item.gia %>
+                </p>
+            </div>
+            <% }); %>
+
     </div>
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div style="height: 70px; width: 45px; border-radius: 10px; background-color: rgba(128, 128, 128, 0.411); color: rgba(83, 81, 81, 0.664);"
+        class="swiper-button-prev"></div>
+    <div style="height: 75px; width: 45px; border-radius: 10px; background-color: rgba(128, 128, 128, 0.411); color: rgba(83, 81, 81, 0.664);"
+        class="swiper-button-next"></div>
 </div>
 
 <%- include("components/footer.ejs") %>

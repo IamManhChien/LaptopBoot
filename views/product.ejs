@@ -3,10 +3,20 @@
     <%- include("components/header.ejs") %>
 
         <div class="product-page-grid-container">
+<<<<<<< HEAD
             <img class="product-page-img" src=<%= product.img  %> alt="">
             <div class="product-page-decision">
                 <div class="product-page-name">
                     <p style="font-weight: bold; font-size: larger;"><%= product.ten  %></p>
+=======
+            <div>
+            <img class="product-page-img" src="<%= pcs[1].img%>" alt="">
+            <img class="product-page-policy" src="/images/chinhsach.png" alt="">
+            </div>
+            <div class="product-page-decision">
+                <div class="product-page-name">
+                    <p style="font-weight: bold;"><%= pcs[3].ten %></p>
+>>>>>>> frontend
                 </div>
                 <div class="product-page-price">
                     <p style="font-weight: bold; color: red; font-size: larger;"><%= product.gia %> <sup>đ</sup></p>
@@ -14,6 +24,10 @@
                 <div style="height: 40%;">
                     <p><%= product.mota  %></p>
                 </div>
+<<<<<<< HEAD
+=======
+                <p style="height: 200px;" class="product-page-description"><%= pcs[1].mota %></p>
+>>>>>>> frontend
                 <div class="product-page-decision-button">
                     <%if(product.soluong>0){%>
                     <form class="product-page-last-decision" action="/"><button class="product-page-button"
