@@ -368,13 +368,19 @@ border-bottom-right-radius: .3rem;
 
 /*Style cho product page */
 
+.product-title2{
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 50px;
+}
+
 .product-page-grid-container{
     width: 70%;
     margin-left: 15%;
     height: 600px;
     display: grid;
     grid-template-columns: 1.5fr 1fr;
-    margin-top: 50px;
+    margin-top: 20px;
     margin-bottom: 10px;
     gap: 20px;
     background-color: white;
