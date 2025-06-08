@@ -1,7 +1,16 @@
 <div class="camera-banner">
     <h4 class="camera-banner-title">Camera giám sát chất lượng cao – an tâm mỗi ngày</h4>
     <div class="camera-banner-content">
-        <img src="/fakedata/productimage/imou.png" alt="">
-        <img src="/fakedata/productimage/imou2.avif" alt="">
+        <img data-id=<%= cameras[0].id %> class="camera-banner-img" src="/fakedata/productimage/imou.png" alt="">
+        <img data-id=<%= cameras[1].id %> class="camera-banner-img" src="/fakedata/productimage/imou2.avif" alt="">
     </div>
 </div>
+
+<script>
+    document.querySelectorAll('.camera-banner-img').forEach(img => {
+        img.addEventListener('click', function() {
+            const id = this.dataset.id;
+            window.location.href = `/product/${id}`;
+        })
+    })
+</script>
