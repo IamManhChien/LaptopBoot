@@ -13,41 +13,17 @@ const swiper = new Swiper('.swiper', {
 
   breakpoints:{
     1024:{
-        slidesPerView: 4
+        slidesPerView: 5
     }
   }
 
 });
 
 
-document.querySelectorAll('.product-grid-item').forEach(product => {
-  product.addEventListener('click', function () {
-    window.location.href = '/Product';
-  });
-});
-
 document.querySelectorAll('.slider-item').forEach(product => {
   product.addEventListener('click', function () {
-    window.location.href = '/Product';
+    const id = this.dataset.id;
+    window.location.href = `/product/${id}`;
   });
 });
 
-
-// ĐOẠN CODE SỬ DỤNG NẾU THÊM ID VÀO CÁC PHẦN
-// document.querySelectorAll('.product-grid-item').forEach(product => {
-//   product.addEventListener('click', function () {
-//     const id = product.getAttribute('data-id');
-//     if (id) {
-//       window.location.href = `/Product?id=${id}`;
-//     }
-//   });
-// });
-
-// document.querySelectorAll('.slider-item').forEach(product => {
-//   product.addEventListener('click', function () {
-//     const id = product.getAttribute('data-id');
-//     if (id) {
-//       window.location.href = `/Product?id=${id}`;
-//     }
-//   });
-// });

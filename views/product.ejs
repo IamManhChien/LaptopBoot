@@ -2,8 +2,15 @@
 
     <%- include("components/header.ejs") %>
 
+        <div class="product-title2">
+                <p style="font-weight: bold;"><a style="text-decoration: none; color: rgb(160, 1, 1);" href="/"> Trang chủ </a> ><%= product.ten  %></p>
+        </div>
+
         <div class="product-page-grid-container">
-            <img class="product-page-img" src=<%= product.img  %> alt="">
+            <div>
+            <img class="product-page-img" src="<%= product.img%>" alt="">
+            <img class="product-page-policy" src="/images/chinhsach.png" alt="">
+            </div>
             <div class="product-page-decision">
                 <div class="product-page-name">
                     <p style="font-weight: bold; font-size: larger;"><%= product.ten  %></p>
