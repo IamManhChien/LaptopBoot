@@ -53,8 +53,7 @@ const authController = {
             res.cookie('refreshToken', refresh_token, {
                 httpOnly: true,
                 secure: false,             
-                sameSite: 'Lax',             
-                path: '/',                  
+                sameSite: 'Lax'             
             });
 
             const { username, ...others } = user.dataValues;

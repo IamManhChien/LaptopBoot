@@ -5,7 +5,7 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 const API_URL = "http://localhost:4000";
-
+axios.defaults.withCredentials = true; 
 function isValidEmail(username) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(username);
@@ -19,7 +19,6 @@ app.use(bodyParser.json());
 
 app.use(express.static("public"))
 app.set('view engine', 'ejs');
-
 app.get("/", async (req, res) => {
   try {
     const pcs = await axios.get(`${API_URL}/laptop`);
@@ -58,13 +57,12 @@ app.get("/register", async (req, res) => {
 })
 app.post("/login", async (req, res) => {
   try {
-    const result = await axios.post(`${API_URL}/auth/login`, req.body, {
-      withCredentials: true,
-    });
+    const result = await axios.post(`${API_URL}/auth/login`, req.body);
     const setCookieHeader = result.headers["set-cookie"];
     if (setCookieHeader) {
       res.setHeader("Set-Cookie", setCookieHeader);
     }
+
     console.log("Đăng nhập thành công", result.data);
     res.redirect("/");
   } catch (err) {
