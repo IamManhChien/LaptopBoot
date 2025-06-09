@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { QueryTypes } from "sequelize";
 import sequelize from './models/db.js';
 import authRoute from './routes/auth.js';
+import cookieParser from "cookie-parser";
 dotenv.config(); 
 // Test kết nối & sync
 (async () => {
@@ -18,7 +19,11 @@ dotenv.config();
 })();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // FE origin
+  credentials: true
+}));
+app.use(cookieParser()); 
 app.use(express.json());
 const port = 4000;
 
@@ -50,9 +55,6 @@ app.get("/product/",async (req,res)=>{
         type: QueryTypes.SELECT
     });
     res.json(result);
-});
-app.get("/register",(req,res)=>{
-    res.json([]) 
 });
 app.get("/search",(req,res)=>{
     console.log(req.query.key);

@@ -7,8 +7,8 @@ const port = 3000;
 const API_URL = "http://localhost:4000";
 
 function isValidEmail(username) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(username);
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(username);
 }
 function isValidPassword(password) {
   return (!/\s/.test(password) && password.length >= 6);
@@ -25,6 +25,17 @@ app.get("/", async (req, res) => {
     const pcs = await axios.get(`${API_URL}/laptop`);
     const cameras = await axios.get(`${API_URL}/camera`);
     const tops = await axios.get(`${API_URL}/random`);
+    await axios.get(`${API_URL}/auth/me`, {
+      headers:{
+        Cookie: req.headers.cookie || ''
+      }
+    })
+    .then(res=>{
+      console.log(res.data);
+    })
+    .catch(err=>{
+      console.log(err);
+    });
     res.render("homepage.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
   } catch (error) {
     console.log(error);
@@ -32,18 +43,37 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/login", (req, res) => {
-  res.render("signin.ejs")
+  if(req.headers.cookie){
+    res.redirect("/");
+  }else{
+    res.render("signin.ejs");
+  }
+})
+app.get("/register", async (req, res) => {
+   if(req.headers.cookie){
+    res.redirect("/");
+  }else{
+    res.render("signup.ejs");
+  }
 })
 app.post("/login", async (req, res) => {
   try {
-    const result = await axios.post(`${API_URL}/auth/login`, req.body);
+    const result = await axios.post(`${API_URL}/auth/login`, req.body, {
+      withCredentials: true,
+    });
+    const setCookieHeader = result.headers["set-cookie"];
+    if (setCookieHeader) {
+      res.setHeader("Set-Cookie", setCookieHeader);
+    }
     console.log("Đăng nhập thành công", result.data);
     res.redirect("/");
   } catch (err) {
     if (err.response) {
       console.log(err.response.data);
+      res.redirect("/login");
     } else {
       console.error("Lỗi mạng:", err.message);
+      res.redirect("/login");
     }
   }
 });
@@ -52,37 +82,31 @@ app.post("/register", async (req, res) => {
     if (req.body.password !== req.body.repassword) {
       //hien thi thong bao sai mat khau
       console.log("Mat khau va mat khau xac nhan khong trung khop");
+      return;
+    }
+    if (isValidPassword(req.body.password) && isValidEmail(req.body.username)) {
+      const result = await axios.post(`${API_URL}/auth/register`, req.body);
+      console.log("Đăng ký thành công thành công", result.data);
+      res.redirect("/login");
     } else {
-      if (isValidPassword(req.body.password) && isValidEmail(req.body.username)) {
-        const result = await axios.post(`${API_URL}/auth/register`, req.body);
-        console.log("Đăng ký thành công thành công", result.data);
-        res.redirect("/login");
-      }else{
-        //thong bao khong hop le
-        console.log(isValidEmail(req.body.username));
-         console.log(isValidPassword(req.body.password));
-        console.log("mat khau khong hop le");
-        
-      }
+      //thong bao khong hop le
+      console.log("mat khau khong hop le");
     }
   } catch (err) {
     if (err.response) {
-      console.log(err.response.data.message);
+      res.redirect("/register");
+      console.log(err.response.data.message);//render loi tai khoan
     } else {
       console.error("Lỗi mạng:", err.message);
     }
   }
 });
 app.get("/cart", async (req, res) => {
-  res.render("cart.ejs")
-})
-
-app.get("/signindone", async (req, res) => {
-  res.render("homepage.ejs")
-})
-
-app.get("/register", async (req, res) => {
-  res.render("signup.ejs")
+  if(req.headers.cookie){
+    res.render("cart.ejs");
+  }else{
+    res.redirect("/login");
+  }
 })
 
 app.get("/product/:id", async (req, res) => {
@@ -97,6 +121,28 @@ app.get("/product/:id", async (req, res) => {
     res.status(500).send('Lỗi máy chủ');
   }
 })
+
+app.post("/cart/:id",async (req,res)=>{
+  if(!req.headers.cookie){
+    res.redirect("/login");
+  }
+  try {
+    
+  } catch (error) {
+    
+  }
+});
+
+app.post("/cart",async (req,res)=>{
+  if(!req.headers.cookie){
+    res.redirect("/login");
+  }
+  try {
+    
+  } catch (error) {
+    
+  }
+});
 
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);
