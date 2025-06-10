@@ -5,7 +5,9 @@ import axios from "axios";
 const app = express();
 const port = 3000;
 const API_URL = "http://localhost:4000";
-axios.defaults.withCredentials = true; 
+axios.defaults.withCredentials = true;
+
+
 function isValidEmail(username) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(username);
@@ -17,7 +19,7 @@ function isValidPassword(password) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static("public"))
+app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.get("/", async (req, res) => {
   try {
@@ -25,16 +27,16 @@ app.get("/", async (req, res) => {
     const cameras = await axios.get(`${API_URL}/camera`);
     const tops = await axios.get(`${API_URL}/random`);
     await axios.get(`${API_URL}/auth/me`, {
-      headers:{
+      headers: {
         Cookie: req.headers.cookie || ''
       }
     })
-    .then(res=>{
-      console.log(res.data);
-    })
-    .catch(err=>{
-      console.log(err);
-    });
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
     res.render("homepage.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
   } catch (error) {
     console.log(error);
@@ -42,27 +44,28 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/login", (req, res) => {
-  if(req.headers.cookie){
+  if (req.headers.cookie) {
     res.redirect("/");
-  }else{
+  } else {
     res.render("signin.ejs");
   }
 })
 app.get("/register", async (req, res) => {
-   if(req.headers.cookie){
+  if (req.headers.cookie) {
     res.redirect("/");
-  }else{
+  } else {
     res.render("signup.ejs");
   }
 })
 app.post("/login", async (req, res) => {
   try {
     const result = await axios.post(`${API_URL}/auth/login`, req.body);
-    const setCookieHeader = result.headers["set-cookie"];
-    if (setCookieHeader) {
-      res.setHeader("Set-Cookie", setCookieHeader);
-    }
-
+    res.cookie('refreshToken', result.data.refresh_token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'Lax',
+      maxAge: 24 * 60 * 60 * 1000 * 200
+    });
     console.log("Đăng nhập thành công", result.data);
     res.redirect("/");
   } catch (err) {
@@ -99,10 +102,30 @@ app.post("/register", async (req, res) => {
     }
   }
 });
+app.get("/logout", async (req, res) => {
+  try {
+    const result = await axios.get(`${API_URL}/auth/logout`);
+    console.log(result);
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'Lax'
+    });
+    res.redirect("/");
+  } catch (err) {
+    if (err.response) {
+      console.log(err.response.data);
+      res.redirect("/login");
+    } else {
+      console.error("Lỗi mạng:", err.message);
+      res.redirect("/login");
+    }
+  }
+});
 app.get("/cart", async (req, res) => {
-  if(req.headers.cookie){
+  if (req.headers.cookie) {
     res.render("cart.ejs");
-  }else{
+  } else {
     res.redirect("/login");
   }
 })
@@ -120,25 +143,31 @@ app.get("/product/:id", async (req, res) => {
   }
 })
 
-app.post("/cart/:id",async (req,res)=>{
-  if(!req.headers.cookie){
+app.post("/cart/:id", async (req, res) => {
+  if (!req.headers.cookie) {
     res.redirect("/login");
   }
   try {
-    
+    const id = "camera-ip-360-do-4mp-imou-ranger-rc-gk2cp-4c0wr";
+    const result = await axios.post(`${API_URL}/cart/:id`, { params: { id: id } }, {
+      headers: {
+        Cookie: req.headers.cookie || ''
+      }
+    });
+
   } catch (error) {
-    
+
   }
 });
 
-app.post("/cart",async (req,res)=>{
-  if(!req.headers.cookie){
+app.post("/cart", async (req, res) => {
+  if (!req.headers.cookie) {
     res.redirect("/login");
   }
   try {
-    
+
   } catch (error) {
-    
+
   }
 });
 
