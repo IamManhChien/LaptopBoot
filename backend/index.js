@@ -2,9 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import { QueryTypes } from "sequelize";
 import sequelize from './models/db.js';
 import authRoute from './routes/auth.js';
+import productRoute from "./routes/product.js";
+import cartRoute from "./routes/cart.js";
 import cookieParser from "cookie-parser";
 dotenv.config(); 
 // Test kết nối & sync
@@ -29,37 +30,8 @@ const port = 4000;
 
 //routes
 app.use("/auth",authRoute);
-
-
-app.get("/laptop",async (req,res)=>{
-    const result = await sequelize.query("SELECT * FROM products WHERE type='laptop'",{
-        type: QueryTypes.SELECT
-    });
-    res.json(result);
-});
-app.get("/camera",async (req,res)=>{
-    const result = await sequelize.query("SELECT * FROM products WHERE type='camera'",{
-        type: QueryTypes.SELECT
-    });
-    res.json(result);
-});
-app.get("/random",async (req,res)=>{
-    const result = await sequelize.query("SELECT * FROM products ORDER BY RANDOM() LIMIT 8;",{
-        type: QueryTypes.SELECT
-    });
-    res.json(result);
-});
-app.get("/product/",async (req,res)=>{
-    const result = await sequelize.query("SELECT * FROM products WHERE id= (?)",{
-        replacements: [req.query.id],
-        type: QueryTypes.SELECT
-    });
-    res.json(result);
-});
-app.get("/search",(req,res)=>{
-    console.log(req.query.key);
-    res.json({data : 'Ket qua tim kiem cho '+ req.query.key}) 
-});
+app.use("/",productRoute);
+app.use("/",cartRoute);
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
 });

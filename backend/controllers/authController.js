@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import User from "../models/user.js";
 import jwt from "jsonwebtoken";
+import User from "../models/Users.js";
 let refreshTokens = [];
 const authController = {
     registerUser: async (req, res) => {
@@ -53,11 +53,11 @@ const authController = {
             res.cookie('refreshToken', refresh_token, {
                 httpOnly: true,
                 secure: false,             
-                sameSite: 'Lax'             
+                sameSite: 'Lax',
+                maxAge: 24 * 60 * 60 * 1000 * 200      
             });
-
             const { username, ...others } = user.dataValues;
-            return res.status(200).json({ username, access_token });
+            return res.status(200).json({ username, access_token,refresh_token });
         } catch (error) {
             res.status(500).json(error);
         }
@@ -80,16 +80,27 @@ const authController = {
             refreshTokens.push(newRefreshToken);
             res.cookie('refreshToken', newRefreshToken, {
                 httpOnly: true,
-                secure: false,
-                sameSite: 'Lax', // hoặc 'None' nếu dùng HTTPS
+                secure: false,             
+                sameSite: 'Lax',
+                maxAge: 24 * 60 * 60 * 1000 * 200     
             });
             res.status(200).json(newAccessToken);
         });
     },
+    logout:async (req, res) => {
+        try {
+            res.clearCookie('refreshToken', {
+                httpOnly: true,
+                secure: false,             
+                sameSite: 'Lax' 
+            });
+            return res.status(200).json("Logout !");
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    },
     getMe: (req, res) => {
-        const token = req.cookies.refreshToken;
-        console.log(req.cookies);
-        
+        const token = req.headers.authorization.split(" ")[1];
         if (!token) return res.status(401).json({ message: 'Chưa đăng nhập' });
         try {
             const user = jwt.verify(token, process.env.JWT_REFRESH_KEY);
