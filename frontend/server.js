@@ -26,17 +26,19 @@ app.get("/", async (req, res) => {
     const pcs = await axios.get(`${API_URL}/laptop`);
     const cameras = await axios.get(`${API_URL}/camera`);
     const tops = await axios.get(`${API_URL}/random`);
-    await axios.get(`${API_URL}/auth/me`, {
-      headers: {
-        Authorization: `Bearer ${req.headers.cookie}`|| ''
-      }
-    })
-      .then(res => {
-        console.log(res.data);
+    if (req.headers.cookie) {
+      await axios.get(`${API_URL}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
       })
-      .catch(err => {
-        console.log(err);
-      });
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
     res.render("homepage.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
   } catch (error) {
     console.log(error);
@@ -137,8 +139,12 @@ app.get("/product/:id", async (req, res) => {
 app.get("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const result = await axios.get(`${API_URL}/cart`, { params: { username: req.params.username} });
-      res.render("cart.ejs",{data:result.data});
+      const result = await axios.get(`${API_URL}/cart`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      res.render("cart.ejs", { data: result.data });
     } else {
       res.redirect("/login");
     }
@@ -150,8 +156,13 @@ app.get("/cart", async (req, res) => {
 app.post("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const id='asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
-      const result = await axios.post(`${API_URL}/cart`, { params: { username: req.params.username, product: req.params.product} });
+      const id = 'asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const result = await axios.post(`${API_URL}/cart`, {
+        params: { username: req.params.username, product: req.params.product },
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
       //có thể truyền json product thì tốt không thì truyền product_id cũng đc, khớp sau
       res.status(200).json(result.data);
     } else {
@@ -166,8 +177,13 @@ app.post("/cart", async (req, res) => {
 app.delete("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const id='asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
-      const result = await axios.delete(`${API_URL}/cart`, { params: {product: req.params.product} });
+      const id = 'asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const result = await axios.delete(`${API_URL}/cart`, {
+        params: { product: req.params.product },
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
       res.status(200).json(result.data);
     } else {
       res.redirect("/login");
@@ -180,8 +196,13 @@ app.delete("/cart", async (req, res) => {
 app.get("/buynow", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const result = await axios.get(`${API_URL}/buynow`, { params: { username: req.params.username, product: req.params.product} });
-      res.render("cart.ejs",{data:result.data});
+      const result = await axios.get(`${API_URL}/buynow`, {
+        params: { username: req.params.username, product: req.params.product },
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      res.render("cart.ejs", { data: result.data });
     } else {
       res.redirect("/login");
     }
