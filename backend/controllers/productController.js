@@ -1,34 +1,58 @@
-import { QueryTypes } from "sequelize";
+import { QueryTypes, Op } from "sequelize";
 import sequelize from '../models/db.js';
+import Product from '../models/products.js';
 const productController = {
     getLaptop: async (req, res) => {
-        const result = await sequelize.query("SELECT * FROM products WHERE type='laptop'", {
-            type: QueryTypes.SELECT
+        const result = await Product.findAll({
+            where: {
+                type: 'laptop'
+            }
         });
         res.json(result);
     },
     getCamera: async (req, res) => {
-        const result = await sequelize.query("SELECT * FROM products WHERE type='camera'", {
-            type: QueryTypes.SELECT
+        const result = await Product.findAll({
+            where: {
+                type: 'camera'
+            }
         });
         res.json(result);
     },
     getRandom: async (req, res) => {
-        const result = await sequelize.query("SELECT * FROM products ORDER BY RANDOM() LIMIT 8;", {
-            type: QueryTypes.SELECT
+        const result = await Product.findAll({
+            order: sequelize.literal('RANDOM()'),
+            limit: 8
         });
         res.json(result);
     },
     getProduct: async (req, res) => {
-        const result = await sequelize.query("SELECT * FROM products WHERE id= (?)", {
-            replacements: [req.query.id],
-            type: QueryTypes.SELECT
+        const result = await Product.findAll({
+            where: {
+                id: `${req.query.id}`
+            }
         });
         res.json(result);
     },
-    search: (req, res) => {
-        console.log(req.query.key);
-        res.json({ data: 'Ket qua tim kiem cho ' + req.query.key })
+    search: async (req, res) => {
+        console.log(req.query.keyword);
+        const results = await Product.findAll({
+            where: {
+                [Op.or]: [
+                    {
+                        ten: {
+                            [Op.iLike]: `%${req.query.keyword}%`
+                        }
+                    },
+                    {
+                        mota: {
+                            [Op.iLike]: `%${req.query.keyword}%`
+                        },
+                    }
+                ]
+            }
+        });
+        res.json(results.data);
+        // res.json({ data: results.data });
     }
 }
 export default productController;

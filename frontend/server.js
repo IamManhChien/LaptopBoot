@@ -28,7 +28,7 @@ app.get("/", async (req, res) => {
     const tops = await axios.get(`${API_URL}/random`);
     await axios.get(`${API_URL}/auth/me`, {
       headers: {
-        Cookie: req.headers.cookie || ''
+        Authorization: `Bearer ${req.headers.cookie}`|| ''
       }
     })
       .then(res => {
@@ -122,14 +122,6 @@ app.get("/logout", async (req, res) => {
     }
   }
 });
-app.get("/cart", async (req, res) => {
-  if (req.headers.cookie) {
-    res.render("cart.ejs");
-  } else {
-    res.redirect("/login");
-  }
-})
-
 app.get("/product/:id", async (req, res) => {
   try {
     const result = await axios.get(`${API_URL}/product/`, { params: { id: req.params.id } });
@@ -142,32 +134,60 @@ app.get("/product/:id", async (req, res) => {
     res.status(500).send('Lỗi máy chủ');
   }
 })
-
-app.post("/cart/:id", async (req, res) => {
-  if (!req.headers.cookie) {
-    res.redirect("/login");
-  }
+app.get("/cart", async (req, res) => {
   try {
-    const id = "camera-ip-360-do-4mp-imou-ranger-rc-gk2cp-4c0wr";
-    const result = await axios.post(`${API_URL}/cart/:id`, { params: { id: id } }, {
-      headers: {
-        Cookie: req.headers.cookie || ''
-      }
-    });
-
+    if (req.headers.cookie) {
+      const result = await axios.get(`${API_URL}/cart`, { params: { username: req.params.username} });
+      res.render("cart.ejs",{data:result.data});
+    } else {
+      res.redirect("/login");
+    }
   } catch (error) {
-
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
+app.post("/cart", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const id='asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const result = await axios.post(`${API_URL}/cart`, { params: { username: req.params.username, product: req.params.product} });
+      //có thể truyền json product thì tốt không thì truyền product_id cũng đc, khớp sau
+      res.status(200).json(result.data);
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
   }
 });
 
-app.post("/cart", async (req, res) => {
-  if (!req.headers.cookie) {
-    res.redirect("/login");
-  }
+app.delete("/cart", async (req, res) => {
   try {
-
+    if (req.headers.cookie) {
+      const id='asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const result = await axios.delete(`${API_URL}/cart`, { params: {product: req.params.product} });
+      res.status(200).json(result.data);
+    } else {
+      res.redirect("/login");
+    }
   } catch (error) {
-
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
+app.get("/buynow", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const result = await axios.get(`${API_URL}/buynow`, { params: { username: req.params.username, product: req.params.product} });
+      res.render("cart.ejs",{data:result.data});
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
   }
 });
 

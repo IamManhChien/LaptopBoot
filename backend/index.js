@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import sequelize from './models/db.js';
 import authRoute from './routes/auth.js';
 import productRoute from "./routes/product.js";
+import cartRoute from "./routes/cart.js";
 import cookieParser from "cookie-parser";
 dotenv.config(); 
 // Test kết nối & sync
@@ -30,6 +31,7 @@ const port = 4000;
 //routes
 app.use("/auth",authRoute);
 app.use("/",productRoute);
+app.use("/",cartRoute);
 app.listen(port, () => {
   console.log(`API is running at http://localhost:${port}`);
 });

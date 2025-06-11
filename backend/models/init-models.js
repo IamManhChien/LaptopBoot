@@ -5,10 +5,10 @@ import _orders from './orders.js';
 import _products from './products.js';
 
 function initModels(sequelize) {
-  const Users = _Users(sequelize, DataTypes);
-  const order_items = _order_items(sequelize, DataTypes);
-  const orders = _orders(sequelize, DataTypes);
-  const products = _products(sequelize, DataTypes);
+  const Users = _Users;
+  const order_items = _order_items;
+  const orders = _orders;
+  const products = _products;
 
   orders.belongsTo(Users, { as: 'user', foreignKey: 'userid' });
   Users.hasMany(orders, { as: 'orders', foreignKey: 'userid' });

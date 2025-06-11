@@ -100,9 +100,7 @@ const authController = {
         }
     },
     getMe: (req, res) => {
-        const token = req.cookies.refreshToken;
-        console.log(req.cookies);
-        
+        const token = req.headers.authorization.split(" ")[1];
         if (!token) return res.status(401).json({ message: 'Chưa đăng nhập' });
         try {
             const user = jwt.verify(token, process.env.JWT_REFRESH_KEY);

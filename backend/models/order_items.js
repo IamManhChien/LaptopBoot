@@ -4,6 +4,7 @@ const OrderItem =  sequelize.define('order_items', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true
     },
     order_id: {
