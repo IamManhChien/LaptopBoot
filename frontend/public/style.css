@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+.usericon:hover{
+    transform: translateY(-5px);
+    transition: transform 0.5s ease; 
+}
+
 body {
     font-family: "Segoe UI", sans-serif;
 }
@@ -582,3 +587,104 @@ border-bottom-right-radius: .3rem;
 }
 
 
+/* Style cho account page */
+
+
+.account-page-container{
+    margin-top: 70px;
+    height: 300px;
+    width: 1000px;
+    margin-left: 300px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-bottom: 190px;
+}
+
+.account-left {
+    width: 280px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: solid 1px rgb(104, 94, 94);
+}
+
+.account-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.account-detail-button-container,
+.account-logout-button-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.account-detail-button-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #e95757;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    height: 50px;
+}
+
+.account-detail-button-container  button:hover {
+    background-color: #df1515;
+}
+
+.account-logout-button-container a:hover{
+    background-color: #df1515;
+}
+
+.account-logout-button-container a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: color 0.3s;
+    background-color: #e95757;
+    height: 50px;
+    justify-content: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.account-logout-button-container img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+
+/* Cột phải */
+.account-right {
+    flex: 1;
+    padding: 30px;
+}
+
+.account-right table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    margin-top: 40px;
+}
+
+.account-right td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.account-right td:first-child {
+    font-weight: 500;
+    width: 35%;
+    color: #555;
+}

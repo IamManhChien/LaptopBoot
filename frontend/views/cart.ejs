@@ -16,13 +16,18 @@
                         <th>Thành tiền</th>
                     </tr>
 
-                    <tr>
-                        <td>Acer Nitro 5</td>
-                        <td><img src="/fakedata/productimage/product1.webp" alt=""></td>
-                        <td>1</td>
-                        <td style="font-weight: bold; color: red;">10.000.000 <sup>đ</sup></td>
-                        <td><button class="delete-product" >Xóa</button></td>
-                    </tr>
+                    <% data.forEach(item => { %>
+
+                        <tr>
+                            <td><%= item.product.name %></td>
+                            <td><img src="<%= item.product.img %>" alt=""></td>
+                            <td>1</td>
+                            <td style="font-weight: bold; color: red;"><%= item.price %> <sup>đ</sup></td>
+                            <td><button class="delete-product">Xóa</button></td>
+                        </tr>
+                        
+                    <% }); %>
+
                 </table>
 
                 <div class="product-cart-payment">

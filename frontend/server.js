@@ -47,7 +47,7 @@ app.get("/", async (req, res) => {
 
 app.get("/login", (req, res) => {
   if (req.headers.cookie) {
-    res.redirect("/");
+    res.render("accountpage.ejs");
   } else {
     res.render("signin.ejs");
   }
@@ -157,8 +157,9 @@ app.post("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
       const id = 'asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const product = JSON.parse(req.body.addproduct);
       const result = await axios.post(`${API_URL}/cart`, {
-        params: { username: req.params.username, product: req.params.product },
+        params: { username: req.params.username, product: product },
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
@@ -196,8 +197,9 @@ app.delete("/cart", async (req, res) => {
 app.get("/buynow", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const product = JSON.parse(req.body.buynowproduct);
       const result = await axios.get(`${API_URL}/buynow`, {
-        params: { username: req.params.username, product: req.params.product },
+        params: { username: req.params.username, product: product },
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
@@ -215,4 +217,3 @@ app.get("/buynow", async (req, res) => {
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);
 })
-
