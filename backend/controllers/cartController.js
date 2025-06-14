@@ -47,14 +47,14 @@ const cartController = {
                     total_price: 0
                 });
             }
-            let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.query.product_id } });
+            console.log(req.body.product);
+            let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.body.product.id } });
             if (!result) {
                 result = await models.order_items.create({
                     order_id: order.id,
-                    product_id: req.query.product_id,
-                    img: req.query.img,
+                    product_id: req.body.product.id,
                     quantity: 1,
-                    price: 0
+                    price: Number(req.body.product.gia.replace(/\./g, ""))
                 });
                 console.log(result);
                 return res.status(200).json(result);
@@ -68,7 +68,7 @@ const cartController = {
         }
 
     },
-    buyNow:async (req, res) => {
+    buyNow: async (req, res) => {
         try {
             order = await models.orders.findOne({ where: { userid: req.user.username } });
             if (!order) {
@@ -78,14 +78,13 @@ const cartController = {
                     total_price: 0
                 });
             }
-            let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.query.product_id } });
+            let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.body.product.id } });
             if (!result) {
                 result = await models.order_items.create({
                     order_id: order.id,
-                    product_id: req.query.product_id,
-                    img: req.query.img,
+                    product_id: req.body.product.id,
                     quantity: 1,
-                    price: 0
+                    price: Number(req.body.product.gia.replace(/\./g, ""))
                 });
                 console.log(result);
                 return res.status(200).json(result);

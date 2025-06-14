@@ -24,14 +24,14 @@
                 <div class="product-page-decision-button">
                     <%if(product.soluong>0){%>
                     <form class="product-page-last-decision" action="/cart" method="post">
-                        <input type="hidden" id="add_product_data" name="addproduct">
+                        <input type="hidden" id="add_product_data" name="addproduct" value='<%= JSON.stringify(product) %>'>
                         <button class="product-page-button" type="submit">
                             <img class="product-page-decision-cart-img" height="100%" src="/icons/cart.png" alt=""> Thêm vào giỏ hàng
                         </button>
                     </form>
 
-                    <form class="product-page-last-decision" action="/buynow" method="get">
-                        <input type="hidden" id="buynow_product_data" name="buynowproduct">
+                    <form class="product-page-last-decision" action="/buynow" method="post">
+                        <input type="hidden" id="buynow_product_data" name="buynowproduct" value='<%= JSON.stringify(product) %>'>
                         <button class="product-page-button" type="submit">Mua ngay
                         </button>
                     </form>
@@ -41,11 +41,6 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            document.getElementById("add_product_data").value = JSON.stringify(product);
-            document.getElementById("buynow_product_data").value = JSON.stringify(product);
-        </script>
 
         <%- include("components/footbanner.ejs") %>
 

@@ -52,7 +52,6 @@ const productController = {
             }
         });
         res.json(results.data);
-        // res.json({ data: results.data });
     }
 }
 export default productController;

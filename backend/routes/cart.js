@@ -6,5 +6,5 @@ const router = express.Router();
 router.get("/cart",middlewareController.verifiedToken,cartController.getCart);
 router.post("/cart",middlewareController.verifiedToken,cartController.addItem);
 router.delete("/cart",middlewareController.verifiedToken,cartController.removeItem);
-router.get("/buynow",middlewareController.verifiedToken,cartController.buyNow);
+router.post("/buynow",middlewareController.verifiedToken,cartController.buyNow);
 export default router;
