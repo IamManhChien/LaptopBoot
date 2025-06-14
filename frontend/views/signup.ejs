@@ -55,4 +55,20 @@
         </div>
     </section>
 
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const password = document.querySelector('input[name="password"]').value;
+            const repassword = document.querySelector('input[name="repassword"]').value;
+
+            if (password !== repassword) {
+                alert('Mật khẩu và Nhập lại mật khẩu không khớp!');
+                e.preventDefault(); // Chặn không gửi form, trang không bị reload
+                return false; // Dừng tại đây
+            }
+
+            // Nếu mật khẩu khớp thì form sẽ tự gửi bình thường
+        });
+    </script>
+
+
     <%- include("components/foot.ejs") %>

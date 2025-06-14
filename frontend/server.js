@@ -49,7 +49,7 @@ app.get("/login", (req, res) => {
   if (req.headers.cookie) {
     res.render("accountpage.ejs");
   } else {
-    res.render("signin.ejs");
+    res.render("signin.ejs", { message: "" });
   }
 })
 app.get("/register", async (req, res) => {
@@ -73,10 +73,10 @@ app.post("/login", async (req, res) => {
   } catch (err) {
     if (err.response) {
       console.log(err.response.data);
-      res.redirect("/login");
+      res.render("signin.ejs", { message: "Tên đăng nhập hoặc mật khẩu không đúng" });
     } else {
       console.error("Lỗi mạng:", err.message);
-      res.redirect("/login");
+      res.render("signin.ejs", { message: "Tên đăng nhập hoặc mật khẩu không đúng" });
     }
   }
 });
@@ -130,7 +130,7 @@ app.get("/product/:id", async (req, res) => {
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { product: result.data[0] });
+    res.render('Product.ejs', { product: result.data[0], message: ""});
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
@@ -165,7 +165,7 @@ app.post("/cart", async (req, res) => {
         }
       });
       //có thể truyền json product thì tốt không thì truyền product_id cũng đc, khớp sau
-      res.status(200).json(result.data);
+      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng"});
     } else {
       res.redirect("/login");
     }
@@ -186,7 +186,14 @@ app.post("/buynow", async (req, res) => {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      res.render("cart.ejs", { data: result.data });
+
+      const new_data = await axios.get(`${API_URL}/cart`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+
+      res.render("cart.ejs", { data: new_data.data });
     } else {
       res.redirect("/login");
     }

@@ -58,4 +58,13 @@
         </div>
     </section>
 
+    <script>
+        const message = <%- JSON.stringify(typeof message !== 'undefined' ? message : '') %>;
+        if (message.trim() !== '') {
+            alert(message);
+        }
+    </script>
+
+
+
     <%- include("components/foot.ejs") %>

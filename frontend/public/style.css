@@ -295,10 +295,73 @@ border-bottom-right-radius: .3rem;
     margin-top: 50px;
 }
 
-.product-cart-table-1{
-    grid-column: span 1;
+.product_image_cart{
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-cart-table-1 {
+    width: 800px;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden; /* bo góc khi có border */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+/* Tiêu đề bảng */
+.product-cart-table-1 th {
+    background-color: #f8f9fa;
+    color: #333;
+    font-weight: 600;
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Cells */
+.product-cart-table-1 td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
     text-align: center;
 }
+
+/* Cột tên sản phẩm — thu nhỏ */
+.product-cart-table-1 td.product-name,
+.product-cart-table-1 th.product-name {
+    width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Ảnh sản phẩm — to ra và cố định */
+.product-cart-table-1 img.product_image_cart {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Nút Xóa */
+.product-cart-table-1 .delete-product {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.product-cart-table-1 .delete-product:hover {
+    background-color: #c82333;
+}
+
 
 .product-cart-payment{
     margin-left: 100px;
