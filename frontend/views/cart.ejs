@@ -31,7 +31,10 @@
                                         <td style="color: red; font-weight: bold;">
                                             <%= item.price %> <sup>đ</sup>
                                         </td>
-                                        <td><button class="delete-product">Xóa</button></td>
+                                        <td>
+                                            <input type="hidden" name="cart_product" value="<%= JSON.stringify(item) %>">
+                                            <form action="/delete" method="get"><button class="delete-product">Xóa</button></form>
+                                        </td>
                                     </tr>
                                     <% }); %>
                             </tbody>

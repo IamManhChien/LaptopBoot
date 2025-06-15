@@ -203,12 +203,13 @@ app.post("/buynow", async (req, res) => {
   }
 });
 
-app.delete("/cart", async (req, res) => {
+app.get("/delete", async (req, res) => {
   try {
     if (req.headers.cookie) {
       const id = 'asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
+      const product = JSON.parse(req.body.cart_product);
       const result = await axios.delete(`${API_URL}/cart`, {
-        params: { product: req.params.product },
+        params: { product: product },
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
