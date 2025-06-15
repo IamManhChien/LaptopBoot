@@ -45,9 +45,11 @@ app.get("/", async (req, res) => {
   }
 })
 
-app.get("/login", (req, res) => {
+app.get("/login", async (req, res) => {
   if (req.headers.cookie) {
-    res.render("accountpage.ejs");
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    const cameras = await axios.get(`${API_URL}/camera`);
+    res.render("accountpage.ejs", { pcs: pcs.data, cameras: cameras.data });
   } else {
     res.render("signin.ejs", { message: "" });
   }
@@ -127,10 +129,12 @@ app.get("/logout", async (req, res) => {
 app.get("/product/:id", async (req, res) => {
   try {
     const result = await axios.get(`${API_URL}/product/`, { params: { id: req.params.id } });
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    const cameras = await axios.get(`${API_URL}/camera`);
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { product: result.data[0], message: ""});
+    res.render('Product.ejs', { product: result.data[0], message: "", pcs: pcs.data, cameras: cameras.data});
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
@@ -139,12 +143,14 @@ app.get("/product/:id", async (req, res) => {
 app.get("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const pcs = await axios.get(`${API_URL}/laptop`);
+      const cameras = await axios.get(`${API_URL}/camera`);
       const result = await axios.get(`${API_URL}/cart`, {
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      res.render("cart.ejs", { data: result.data });
+      res.render("cart.ejs", { data: result.data, pcs: pcs.data, cameras: cameras.data });
     } else {
       res.redirect("/login");
     }
@@ -156,6 +162,8 @@ app.get("/cart", async (req, res) => {
 app.post("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const pcs = await axios.get(`${API_URL}/laptop`);
+      const cameras = await axios.get(`${API_URL}/camera`);
       const product = JSON.parse(req.body.addproduct);
       const result = await axios.post(`${API_URL}/cart`,{
         product
@@ -165,7 +173,7 @@ app.post("/cart", async (req, res) => {
         }
       });
       //có thể truyền json product thì tốt không thì truyền product_id cũng đc, khớp sau
-      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng"});
+      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng", pcs: pcs.data, cameras: cameras.data});
     } else {
       res.redirect("/login");
     }
@@ -178,6 +186,8 @@ app.post("/cart", async (req, res) => {
 app.post("/buynow", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const pcs = await axios.get(`${API_URL}/laptop`);
+      const cameras = await axios.get(`${API_URL}/camera`);
       const product = JSON.parse(req.body.buynowproduct);
       const result = await axios.post(`${API_URL}/buynow`,{
         product
@@ -193,7 +203,7 @@ app.post("/buynow", async (req, res) => {
         }
       });
 
-      res.render("cart.ejs", { data: new_data.data });
+      res.render("cart.ejs", { data: new_data.data, pcs: pcs.data, cameras: cameras.data });
     } else {
       res.redirect("/login");
     }
