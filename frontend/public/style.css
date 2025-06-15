@@ -44,33 +44,37 @@ body {
 }
 
 .header__search {
-    display: flex;
-    flex: 1;
-    max-width: 700px;
-    margin: 0 20px;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    overflow: hidden;
-    background-color: #f8f8f8;
+    height: 40px;
+    width: 700px;
+    display: grid;
+    grid-template-columns: 8fr 0.5fr;
 }
 
-.input-search {
-    flex: 1;
+#search{
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
     border: none;
-    padding: 10px 15px;
-    outline: none;
-    background: transparent;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
 }
 
-.header__search button {
-    background-color: transparent;
+.search-container{
+    width: 100%;
+    height: 100%;
     border: none;
-    padding: 10px 15px;
-    cursor: pointer;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    
 }
 
-.header__search button img {
-    height: 20px;
+.search-container button {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #ffe1e1;
 }
 
 .header__actions {
@@ -95,6 +99,39 @@ body {
 
 .header__icon img {
     height: 24px;
+}
+
+/* Autocomplete container */
+
+
+.autocomplete-container {
+    position: relative;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    border-radius: 0 0 8px 8px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    max-height: 180px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background-color: #eaedf0;
+    color: rgb(0, 0, 0);
 }
 
 /*Style dành cho slide1*/
