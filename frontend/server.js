@@ -213,18 +213,29 @@ app.post("/buynow", async (req, res) => {
   }
 });
 
-app.get("/delete", async (req, res) => {
+app.get("/search", async (req, res) => {
+  try {
+    console.log(req.body.search);
+    const result = await axios.get(`${API_URL}/search`);
+    console.log(result);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
+
+app.get("/cart/delete/:id", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const id = 'asus-vivobook-16-x1605va-i5-mb360w'; //tuong trung
-      const product = JSON.parse(req.body.cart_product);
       const result = await axios.delete(`${API_URL}/cart`, {
-        params: { product: product },
+        params: { product_id: req.params.id },
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
       res.status(200).json(result.data);
+      res.redirect("/cart");
     } else {
       res.redirect("/login");
     }

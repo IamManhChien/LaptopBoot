@@ -40,12 +40,12 @@ const productController = {
                 [Op.or]: [
                     {
                         ten: {
-                            [Op.iLike]: `%${req.query.keyword}%`
+                            [Op.iLike]: `%${req.params.keyword}%`
                         }
                     },
                     {
                         mota: {
-                            [Op.iLike]: `%${req.query.keyword}%`
+                            [Op.iLike]: `%${req.params.keyword}%`
                         },
                     }
                 ]
