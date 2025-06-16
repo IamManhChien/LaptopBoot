@@ -40,18 +40,13 @@ const productController = {
                 [Op.or]: [
                     {
                         ten: {
-                            [Op.iLike]: `%${req.params.keyword}%`
+                            [Op.iLike]: `%${req.query.keyword}%`
                         }
-                    },
-                    {
-                        mota: {
-                            [Op.iLike]: `%${req.params.keyword}%`
-                        },
                     }
                 ]
             }
         });
-        res.json(results.data);
+        res.json(results);
     }
 }
 export default productController;

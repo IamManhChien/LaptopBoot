@@ -10,7 +10,7 @@
 
       <form action="/search" method="get" class="header__search">
         <div class="autocomplete-container">
-          <input type="text" id="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off" style="outline: none;" />
+          <input name="search_product" type="text" id="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off" style="outline: none;" />
           <div id="suggestions" class="suggestions-list" style="display:none"></div>
         </div>
         <div class="search-container">
@@ -42,12 +42,14 @@
   const cameras = <%- JSON.stringify(typeof cameras !== 'undefined' ? cameras : []) %>;
 
   const combinedItems = [
-      ...pcs.map(item => item.ten),
-      ...cameras.map(item => item.ten)
-    ];
+    ...pcs.map(item => item.ten),
+    ...cameras.map(item => item.ten)
+  ];
+
   const searchInput = document.getElementById('search');
   const suggestions = document.getElementById('suggestions');
   let activeIndex = -1;
+
   function closeSuggestions() {
     suggestions.innerHTML = '';
     suggestions.style.display = 'none';
@@ -61,6 +63,7 @@
     });
     activeIndex = index;
   }
+
   function selectSuggestion(text) {
     searchInput.value = text;
     closeSuggestions();
@@ -69,29 +72,34 @@
   function showSuggestions(value) {
     closeSuggestions();
     if (!value.trim()) return;
-    const filtered = combinedItems.filter(item => 
+
+    const filtered = combinedItems.filter(item =>
       item.toLowerCase().includes(value.toLowerCase())
     );
     if (filtered.length === 0) return;
-    filtered.forEach((item, index) => {
+
+    filtered.forEach((item) => {
       const div = document.createElement('div');
       div.classList.add('suggestion-item');
       div.textContent = item;
       div.addEventListener('mousedown', e => {
-        e.preventDefault();
+        e.preventDefault(); // tránh mất focus trước khi set giá trị
         selectSuggestion(item);
       });
       suggestions.appendChild(div);
     });
+
     suggestions.style.display = 'block';
   }
 
-    searchInput.addEventListener('input', (e) => {
+  searchInput.addEventListener('input', (e) => {
     showSuggestions(e.target.value);
   });
+
   searchInput.addEventListener('keydown', (e) => {
     const items = suggestions.querySelectorAll('.suggestion-item');
     if (items.length === 0) return;
+
     if (e.key === 'ArrowDown') {
       e.preventDefault();
       activeIndex = (activeIndex + 1) % items.length;
@@ -101,8 +109,8 @@
       activeIndex = (activeIndex - 1 + items.length) % items.length;
       highlightSuggestion(activeIndex);
     } else if (e.key === 'Enter') {
-      e.preventDefault();
       if (activeIndex > -1) {
+        e.preventDefault();
         selectSuggestion(items[activeIndex].textContent);
       } else {
         closeSuggestions();
@@ -117,4 +125,9 @@
       closeSuggestions();
     }
   });
+
+  // Debug: kiểm tra giá trị trước khi submit
+  // document.querySelector('.header__search').addEventListener('submit', (e) => {
+  //   console.log("Submit từ khóa:", searchInput.value);
+  // });
 </script>
