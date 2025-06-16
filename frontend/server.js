@@ -245,6 +245,24 @@ app.get("/cart/delete/:id", async (req, res) => {
   }
 });
 
+app.get("/cart/checkout", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const result = await axios.delete(`${API_URL}/cart`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      res.status(200).json(result.data);
+      // res.redirect("/cart");
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
 
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);
