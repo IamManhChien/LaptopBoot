@@ -54,7 +54,7 @@ const cartController = {
                     order_id: order.id,
                     product_id: req.body.product.id,
                     quantity: 1,
-                    price: Number(req.body.product.gia.replace(/\./g, ""))
+                    price: Number(req.body.product.gia.replace(/\D/g, ""))
                 });
                 console.log(result);
                 return res.status(200).json(result);
