@@ -34,7 +34,6 @@ const productController = {
         res.json(result);
     },
     search: async (req, res) => {
-        console.log(req.query.keyword);
         const results = await Product.findAll({
             where: {
                 [Op.or]: [

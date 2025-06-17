@@ -19,11 +19,6 @@ const cartController = {
                     total_price: 0
                 });
             }
-            // const items = await OrderItem.findAll({ where: { order_id: order.id } });
-            // let result = [];
-            // for(let i = 0 ; i< items.length;i++){
-            //     result.push(await Product.findOne({where:{id:items[i].product_id}}));
-            // }
             const items = await models.order_items.findAll({
                 where: { order_id: order.id },
                 include: [
@@ -59,7 +54,7 @@ const cartController = {
                     order_id: order.id,
                     product_id: req.body.product.id,
                     quantity: 1,
-                    price: Number(req.body.product.gia.replace(/\D/g, ""))
+                    price: Number(req.body.product.gia.replace(/[^\d]/g, ''))
                 });
                 console.log(result);
                 return res.status(200).json(result);
@@ -89,7 +84,7 @@ const cartController = {
                     order_id: order.id,
                     product_id: req.body.product.id,
                     quantity: 1,
-                    price: Number(req.body.product.gia.replace(/\./g, ""))
+                    price: Number(req.body.product.gia.replace(/[^\d]/g, ''))
                 });
                 console.log(result);
                 return res.status(200).json(result);
