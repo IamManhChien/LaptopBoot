@@ -255,6 +255,26 @@ app.get("/cart/checkout", async (req, res) => {
   }
 });
 
+app.get("/payment", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const pcs = await axios.get(`${API_URL}/laptop`);
+      const cameras = await axios.get(`${API_URL}/camera`);
+      const result = await axios.get(`${API_URL}/cart`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      res.render("paymentpage.ejs", { data: result.data, pcs: pcs.data, cameras: cameras.data });
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);

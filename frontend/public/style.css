@@ -789,3 +789,92 @@ border-bottom-right-radius: .3rem;
     width: 35%;
     color: #555;
 }
+
+/* Style của paymentpage */
+
+.how-to-recieve{
+    width: 800px;
+    background-color: white;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding-left: 15px;
+    height: 300px;
+}
+
+.recieve-title{
+    font-weight: bold;
+    height: 35px;
+    padding-top: 10px;
+}
+
+.recieve-choice{
+    height: 40px;
+    padding-top: 10px;
+}
+
+.recieve-input1{
+    width: 750px;
+    height: 45px;
+    border: solid 1px rgb(198, 190, 190);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.recieve-note{
+    width: 800px;
+    height: 80px;
+}
+
+.recieve-input2{
+    width: 750px;
+    height: 75px;
+    border: solid 1px rgb(198, 190, 190);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.recieve-checkbox1{
+    margin-top: 10px;
+}
+
+.how-to-recieve input[type="radio"],
+.how-to-recieve input[type="checkbox"] {
+  accent-color: red;
+}
+
+.payment-method{
+    width: 800px;
+    background-color: white;
+    margin-top: 20px;
+    padding-left: 15px;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.payment-method-choice{
+    font-weight: bold;
+    height: 40px;
+    padding-top: 10px;
+}
+
+.pay-when-recieve{
+    margin-top: 10px;
+    font-size: small;
+    height: 30px;
+    padding-left: 15px;
+}
+
+.pay-vnpay{
+    font-size: small;
+    height: 30px;
+    padding-left: 15px;
+}
+
+.pay-when-recieve input[type="radio"],
+.pay-vnpay input[type="radio"] {
+  accent-color: red;
+}
+
+
