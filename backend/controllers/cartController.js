@@ -6,7 +6,12 @@ let order = null;
 const cartController = {
     getCart: async (req, res) => {
         try {
-            order = await models.orders.findOne({ where: { userid: req.user.username } });
+            order = await models.orders.findOne({
+                where: {
+                    userid: req.user.username,
+                    status: 'pending'
+                }
+            });
             if (!order) {
                 order = await models.orders.create({
                     userid: req.user.username,
@@ -119,12 +124,22 @@ const cartController = {
             res.status(404).json(error)
         }
     },
-    getLaptop: async (req, res) => {
-        const result = await sequelize.query("SELECT * FROM products WHERE type='laptop'", {
-            type: QueryTypes.SELECT
-        });
-        res.json(result);
-    },
-
+    checkOut: async (req, res) => {
+        try {
+            let result = await models.order_items.findAll({ where: { order_id: order.id} });
+            let total_price = 0;
+            result.forEach(
+                (item) =>{
+                    total_price += item.quantity * item.price;
+                }
+            )
+            order.total_price = total_price;
+            await order.save();
+            res.status(200).json({order: order, order_item:result});
+        } catch (error) {
+            console.log(error);
+            res.status(404).json(error)
+        }
+    }
 }
 export default cartController;
