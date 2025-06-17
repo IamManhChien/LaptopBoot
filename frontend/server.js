@@ -33,7 +33,7 @@ app.get("/", async (req, res) => {
         }
       })
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch(err => {
           console.log(err);
@@ -109,7 +109,6 @@ app.post("/register", async (req, res) => {
 app.get("/logout", async (req, res) => {
   try {
     const result = await axios.get(`${API_URL}/auth/logout`);
-    console.log(result);
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: false,
@@ -213,60 +212,6 @@ app.post("/buynow", async (req, res) => {
   }
 });
 
-
-// Kiểm tra keyword có được truyền không 
-
-// app.get("/search", async (req, res) => {
-//   const keyword = req.query.search_product;
-//   console.log("✅ Giá trị search_product phía server nhận được:", keyword);
-
-//   if (!keyword) {
-//     console.log("⚠️ Không có giá trị search_product được truyền.");
-//     return res.status(400).send("Thiếu từ khóa tìm kiếm.");
-//   }
-  
-//   res.send(`${keyword}`);
-// });
-
-
-app.get("/search", async (req, res) => {
-  try {
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    const cameras = await axios.get(`${API_URL}/camera`);
-    const keyword = req.query.search_product;
-    const result = await axios.get(`${API_URL}/search`, {
-      params: { keyword }
-    });
-    res.render("Product.ejs", {
-      product: result.data[0],
-      pcs: pcs.data,
-      cameras: cameras.data
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Lỗi máy chủ');
-  }
-});
-
-// app.get("/cart/delete/:id", async (req, res) => {
-//   try {
-//     if (req.headers.cookie) {
-//       const result = await axios.delete(`${API_URL}/cart`, {
-//         params: { product_id: req.query.cart_product },
-//         headers: {
-//           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
-//         }
-//       });
-//       res.status(200).json(result.data);
-//       res.redirect("/cart");
-//     } else {
-//       res.redirect("/login");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Lỗi máy chủ');
-//   }
-// });
 
 app.get("/cart/delete/:id", async (req, res) => {
   try {

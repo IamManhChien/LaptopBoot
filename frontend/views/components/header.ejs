@@ -1,5 +1,3 @@
-
-
 <body class="bodyStyle">
 
   <header class="header">
@@ -10,7 +8,8 @@
 
       <form action="/search" method="get" class="header__search">
         <div class="autocomplete-container">
-          <input name="search_product" type="text" id="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off" style="outline: none;" />
+          <input name="search_product" type="text" id="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off"
+            style="outline: none;" />
           <div id="suggestions" class="suggestions-list" style="display:none"></div>
         </div>
         <div class="search-container">
@@ -22,112 +21,155 @@
 
       <div class="header__actions">
         <form action="/login" method="get">
-        <a  class="header__icon">
-          <button class="transparent-button"><img class="usericon" src="/icons/user.png" alt="Đăng nhập"></button>
-        </a>
+          <a class="header__icon">
+            <button class="transparent-button"><img class="usericon" src="/icons/user.png" alt="Đăng nhập"></button>
+          </a>
         </form>
 
         <form action="/cart" method="get">
-        <a class="header__icon">
-          <img src="/icons/cart.png" alt="Giỏ hàng">
-          <button class="transparent-button">Giỏ hàng</button>
-        </a>
+          <a class="header__icon">
+            <img src="/icons/cart.png" alt="Giỏ hàng">
+            <button class="transparent-button">Giỏ hàng</button>
+          </a>
         </form>
       </div>
     </div>
   </header>
 
-<script>
-  const pcs = <%- JSON.stringify(typeof pcs !== 'undefined' ? pcs : []) %>;
-  const cameras = <%- JSON.stringify(typeof cameras !== 'undefined' ? cameras : []) %>;
+  <script>
+    let controller = null;
+    let timeoutId = null;
+    let searchResults = [];
+    const searchInput = document.getElementById('search');
+    const suggestions = document.getElementById('suggestions');
+    let activeIndex = -1;
+    const API_URL = "http://localhost:4000";
 
-  const combinedItems = [
-    ...pcs.map(item => item.ten),
-    ...cameras.map(item => item.ten)
-  ];
-
-  const searchInput = document.getElementById('search');
-  const suggestions = document.getElementById('suggestions');
-  let activeIndex = -1;
-
-  function closeSuggestions() {
-    suggestions.innerHTML = '';
-    suggestions.style.display = 'none';
-    activeIndex = -1;
-  }
-
-  function highlightSuggestion(index) {
-    const items = suggestions.querySelectorAll('.suggestion-item');
-    items.forEach((item, i) => {
-      item.classList.toggle('active', i === index);
+    searchInput.addEventListener('input', function (event) {
+      const keyword = event.target.value;
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        callSearchAPI(keyword);
+      }, 300);
     });
-    activeIndex = index;
-  }
 
-  function selectSuggestion(text) {
-    searchInput.value = text;
-    closeSuggestions();
-  }
+    async function callSearchAPI(keyword) {
+      if (!keyword.trim()) {
+        closeSuggestions();
+        return;
+      }
 
-  function showSuggestions(value) {
-    closeSuggestions();
-    if (!value.trim()) return;
+      console.log(`Gọi API với keyword: ${keyword}`);
 
-    const filtered = combinedItems.filter(item =>
-      item.toLowerCase().includes(value.toLowerCase())
-    );
-    if (filtered.length === 0) return;
+      if (controller) controller.abort();
 
-    filtered.forEach((item) => {
-      const div = document.createElement('div');
-      div.classList.add('suggestion-item');
-      div.textContent = item;
-      div.addEventListener('mousedown', e => {
-        e.preventDefault(); // tránh mất focus trước khi set giá trị
-        selectSuggestion(item);
+      controller = new AbortController();
+      const signal = controller.signal;
+
+      fetch(`${API_URL}/search?keyword=${encodeURIComponent(keyword)}`, { signal })
+        .then(response => response.json())
+        .then(data => {
+          if (signal.aborted) {
+            console.log('Bỏ qua render vì request đã bị huỷ');
+            return;
+          }
+          searchResults = data;
+          showSuggestions(keyword);
+        })
+        .catch(error => {
+          if (error.name === 'AbortError') {
+            console.log('Request bị huỷ');
+          } else {
+            console.error('Lỗi:', error);
+          }
+        });
+    }
+
+    function closeSuggestions() {
+      suggestions.innerHTML = '';
+      suggestions.style.display = 'none';
+      activeIndex = -1;
+    }
+
+    function highlightSuggestion(index) {
+      const items = suggestions.querySelectorAll('.suggestion-item');
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
       });
-      suggestions.appendChild(div);
-    });
+      activeIndex = index;
+    }
 
-    suggestions.style.display = 'block';
-  }
+    function selectSuggestion(productItem) {
+      window.location.href = `/product/${productItem.id}`;
+      closeSuggestions();
+    }
 
-  searchInput.addEventListener('input', (e) => {
-    showSuggestions(e.target.value);
-  });
+    function showSuggestions(value) {
+      if (!value.trim()) {
+        closeSuggestions();
+        return;
+      }
+      if (searchResults.length === 0) {
+        closeSuggestions();
+        return;
+      }
 
-  searchInput.addEventListener('keydown', (e) => {
-    const items = suggestions.querySelectorAll('.suggestion-item');
-    if (items.length === 0) return;
+      suggestions.innerHTML = ''; // Xoá gợi ý cũ
 
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      activeIndex = (activeIndex + 1) % items.length;
-      highlightSuggestion(activeIndex);
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      activeIndex = (activeIndex - 1 + items.length) % items.length;
-      highlightSuggestion(activeIndex);
-    } else if (e.key === 'Enter') {
-      if (activeIndex > -1) {
-        e.preventDefault();
-        selectSuggestion(items[activeIndex].textContent);
-      } else {
+      searchResults.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('suggestion-item');
+        div.innerHTML = `
+      <div style="display: flex; align-items: center;">
+        <img src="${item.img}" alt="${item.ten}" style="width: 40px; height: 40px; object-fit: cover; margin-right: 8px; border-radius: 4px;">
+        <div>
+          <div style="font-weight: bold;">${item.ten}</div>
+          <div style="color: gray; font-size: 12px;">${formatPriceFromString(item.gia)}</div>
+        </div>
+      </div>
+    `;
+        div.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          selectSuggestion(item);
+        });
+        suggestions.appendChild(div);
+      });
+
+      suggestions.style.display = 'block';
+    }
+
+    function formatPriceFromString(priceStr) {
+      const number = parseInt(priceStr.replace(/\./g, ''), 10);
+      return number.toLocaleString('vi-VN') + ' ₫';
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.autocomplete-container') && e.target !== searchInput) {
         closeSuggestions();
       }
-    } else if (e.key === 'Escape') {
-      closeSuggestions();
-    }
-  });
+    });
 
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.autocomplete-container')) {
-      closeSuggestions();
-    }
-  });
+    // searchInput.addEventListener('keydown', (e) => {
+    //   const items = suggestions.querySelectorAll('.suggestion-item');
+    //   if (items.length === 0) return;
 
-  // Debug: kiểm tra giá trị trước khi submit
-  // document.querySelector('.header__search').addEventListener('submit', (e) => {
-  //   console.log("Submit từ khóa:", searchInput.value);
-  // });
-</script>
+    //   if (e.key === 'ArrowDown') {
+    //     e.preventDefault();
+    //     activeIndex = (activeIndex + 1) % items.length;
+    //     highlightSuggestion(activeIndex);
+    //   } else if (e.key === 'ArrowUp') {
+    //     e.preventDefault();
+    //     activeIndex = (activeIndex - 1 + items.length) % items.length;
+    //     highlightSuggestion(activeIndex);
+    //   } else if (e.key === 'Enter') {
+    //     if (activeIndex > -1) {
+    //       e.preventDefault();
+    //       selectSuggestion(items[activeIndex].textContent);
+    //     } else {
+    //       closeSuggestions();
+    //     }
+    //   } else if (e.key === 'Escape') {
+    //     closeSuggestions();
+    //   }
+    // });
+  </script>
