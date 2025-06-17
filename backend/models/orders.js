@@ -25,13 +25,19 @@ const Order =  sequelize.define('orders', {
     },
     payment_method: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false,
+      defaultValue: "cod"
     },
     payment_status: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false,
+      defaultValue: "pending"
     },
     shipping_address: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+     note: {
       type: DataTypes.TEXT,
       allowNull: true
     }

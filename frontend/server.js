@@ -236,10 +236,10 @@ app.get("/cart/delete/:id", async (req, res) => {
   }
 });
 
-app.get("/cart/checkout", async (req, res) => {
+app.post("/cart/checkout", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const result = await axios.delete(`${API_URL}/cart`, {
+      const result = await axios.post(`${API_URL}/cart/checkout`, {
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
@@ -258,14 +258,12 @@ app.get("/cart/checkout", async (req, res) => {
 app.get("/payment", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const pcs = await axios.get(`${API_URL}/laptop`);
-      const cameras = await axios.get(`${API_URL}/camera`);
       const result = await axios.get(`${API_URL}/cart`, {
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      res.render("paymentpage.ejs", { data: result.data, pcs: pcs.data, cameras: cameras.data });
+      res.render("paymentpage.ejs", { data: result.data});
     } else {
       res.redirect("/login");
     }
@@ -274,7 +272,6 @@ app.get("/payment", async (req, res) => {
     res.status(500).send('Lỗi máy chủ');
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);

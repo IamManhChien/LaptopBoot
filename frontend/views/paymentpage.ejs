@@ -63,7 +63,7 @@
                             <div class="payment-method-choice">Phương thức thanh toán</div>
                             <div class="pay-when-recieve">
                                 <label>
-                                    <input type="radio" name="delivery" value="home" checked>
+                                    <input type="radio" name="method" value="home" checked>
                                     <img style="height: 25px; width: 45px" src="/icons/money.png" alt="">
                                     Thanh toán khi nhận hàng 
                                 </label>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="pay-vnpay">
                                 <label>
-                                    <input type="radio" name="delivery" value="home" checked>
+                                    <input type="radio" name="method" value="home">
                                     <img style="height: 40px; width: 45px;" src="/icons/vnpay.webp" alt="">
                                     Thanh toán bằng VNPay
                                 </label>
@@ -87,7 +87,7 @@
                         <input class="cart-payment-coupon-input" type="text" name="" id="" placeholder="Mã giảm giá">
                         <input class="cart-payment-coupon-submit" type="submit" value="Áp dụng">
                     </form>
-                    <form action="/" method="get" class="cart-payment">
+                    <form action="/cart/checkout" method="post" class="cart-payment">
                         <div class="product-cart-table-container">
                             <table class="product-cart-table-2">
                                 <tr>
