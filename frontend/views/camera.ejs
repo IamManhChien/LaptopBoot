@@ -1,0 +1,36 @@
+<%- include("components/head.ejs") %>
+
+<%- include("components/header.ejs") %>
+
+<div class="product-cart-flex-container">
+    <div class="product-cart-title">
+        <p style="font-weight: bold;"><a style="text-decoration: none; color: rgb(160, 1, 1);" href="/"> Trang chủ </a>
+            > Camera</p>
+    </div>
+
+    <div style="margin-top: 30px;" class="category-product-grid-page">
+        <% cameras.forEach(function(item) { %>
+            <div id="<%=item.id%>" data-id="<%=item.id%>" style="height: 300px; width: 186.6px;"
+                class="slider-item swiper-slide">
+                <img class="slider-item-image" src="<%= item.img%>" alt="">
+                <p class="slider-item-name">
+                    <%= item.ten %>
+                </p>
+                <p class="slider-item-price">
+                    <%= item.gia %>
+                </p>
+            </div>
+            <% }); %>
+    </div>
+
+</div>
+
+
+ 
+
+
+<%- include("components/footbanner.ejs") %>
+
+<%- include("components/footer.ejs") %>
+
+<%- include("components/foot.ejs") %>

@@ -6,6 +6,28 @@
         <img src="/images/logo.png" alt="Logo">
       </a>
 
+      <div class="dropdown">
+        <a style="border-radius: 1.5rem; width: 120; font-weight: 500; height: 44px; color: white ; border: solid 1.8px white; align-items: center;" class="btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img style="height: 30px; width: 30px;" src="/icons/menu.png" alt="">
+          Danh mục
+        </a>
+      
+        <ul class="dropdown-menu">
+          <li>
+            <a onmouseover="this.style.backgroundColor='lightgray'" onmouseout="this.style.backgroundColor='white'" class="dropdown-item" href="/laptop">
+            <img style="height: 25px; width: 25px; margin-right: 20px;" src="/icons/laptop.png" alt="">
+            Laptop
+            </a>
+          </li>
+          <li>
+            <a onmouseover="this.style.backgroundColor='lightgray'" onmouseout="this.style.backgroundColor='white'" class="dropdown-item" href="/camera">
+            <img style="height: 25px; width: 25px; margin-right: 20px;" src="/icons/camera.png" alt="">
+            Camera
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <form action="/search" method="get" class="header__search">
         <div class="autocomplete-container">
           <input name="search_product" type="text" id="search" placeholder="Tìm kiếm sản phẩm" autocomplete="off"

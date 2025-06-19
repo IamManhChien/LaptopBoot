@@ -117,7 +117,7 @@ body {
     background: #fff;
     border: 1px solid #ccc;
     border-top: none;
-    max-height: 180px;
+    max-height: 300px;
     overflow-y: auto;
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -880,4 +880,29 @@ border-bottom-right-radius: .3rem;
   accent-color: red;
 }
 
+/* Style cua category page */
 
+
+.category-product-grid-page{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    width: 80%;
+    margin-left: 10%;
+}
+
+/* Style của xem thêm */
+
+.watch-more-button{
+    width: 130px; 
+    height: 50px; 
+    border-radius: 1.5rem; 
+    background-color: white; 
+    text-align: center; 
+    color: black; 
+    font-size: 500;
+    font-weight: 500;  
+    padding-top: 10px; 
+    text-decoration: none;
+    border: solid 1px rgb(233, 233, 233);
+}

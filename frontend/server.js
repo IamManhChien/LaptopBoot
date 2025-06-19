@@ -275,6 +275,54 @@ app.get("/payment", async (req, res) => {
   }
 });
 
+app.get("/laptop", async(req, res) =>{
+ try {
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    const cameras = await axios.get(`${API_URL}/camera`);
+    const tops = await axios.get(`${API_URL}/random`);
+    if (req.headers.cookie) {
+      await axios.get(`${API_URL}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      })
+        .then(res => {
+          // console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    res.render("laptop.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/camera", async(req, res) =>{
+ try {
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    const cameras = await axios.get(`${API_URL}/camera`);
+    const tops = await axios.get(`${API_URL}/random`);
+    if (req.headers.cookie) {
+      await axios.get(`${API_URL}/auth/me`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      })
+        .then(res => {
+          // console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+    res.render("camera.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Sever running on port ${port}`);
