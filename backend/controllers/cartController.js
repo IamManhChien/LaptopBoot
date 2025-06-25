@@ -39,7 +39,12 @@ const cartController = {
     },
     addItem: async (req, res) => {
         try {
-            order = await models.orders.findOne({ where: { userid: req.user.username } });
+            order = await models.orders.findOne({
+                where: {
+                    userid: req.user.username,
+                    status: 'pending'
+                }
+            });
             if (!order) {
                 order = await models.orders.create({
                     userid: req.user.username,
@@ -70,7 +75,12 @@ const cartController = {
     },
     buyNow: async (req, res) => {
         try {
-            order = await models.orders.findOne({ where: { userid: req.user.username } });
+            order = await models.orders.findOne({
+                where: {
+                    userid: req.user.username,
+                    status: 'pending'
+                }
+            });
             if (!order) {
                 order = await models.orders.create({
                     userid: req.user.username,
@@ -121,23 +131,24 @@ const cartController = {
     },
     checkOut: async (req, res) => {
         try {
-            let result = await models.order_items.findAll({ where: { order_id: order.id} });
+            let result = await models.order_items.findAll({ where: { order_id: order.id } });
             let total_price = 0;
             result.forEach(
-                async (item) =>{
+                async (item) => {
                     total_price += item.quantity * item.price;
-                    let tmp = await models.products.findOne({ where: { id: item.product_id} });
-                    tmp.soluong = tmp.soluong-item.quantity;
+                    let tmp = await models.products.findOne({ where: { id: item.product_id } });
+                    tmp.soluong = tmp.soluong - item.quantity;
                     await tmp.save();
                 }
             )
             order.total_price = total_price;
-            order.payment_method =  req.body.paymentMethod;
+            order.payment_method = req.body.paymentMethod;
             order.shipping_address = req.body.address;
             order.note = req.body.note;
             order.status = "confirmed"
             await order.save();
-            res.status(200).json({order: order, order_item:result});
+            order = null;
+            res.status(200).json({ order: order, order_item: result });
         } catch (error) {
             console.log(error);
             res.status(404).json(error)
