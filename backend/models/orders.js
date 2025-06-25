@@ -17,7 +17,8 @@ const Order =  sequelize.define('orders', {
     },
     status: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: true,
+      defaultValue: "pending"
     },
     total_price: {
       type: DataTypes.BIGINT,
@@ -35,7 +36,7 @@ const Order =  sequelize.define('orders', {
     },
     shipping_address: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     },
      note: {
       type: DataTypes.TEXT,

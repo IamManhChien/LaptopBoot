@@ -45,22 +45,32 @@ app.get("/", async (req, res) => {
   }
 })
 
+app.get("/laptop", async(req, res) =>{
+ try {
+    const pcs = await axios.get(`${API_URL}/laptop`);
+    res.render("laptop.ejs", { pcs: pcs.data});
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/camera", async(req, res) =>{
+ try {
+    const cameras = await axios.get(`${API_URL}/camera`);
+    res.render("camera.ejs", {cameras: cameras.data});
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get("/login", async (req, res) => {
   if (req.headers.cookie) {
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("accountpage.ejs", { pcs: pcs.data, cameras: cameras.data });
+    res.render("accountpage.ej");
   } else {
     res.render("signin.ejs", { message: "" });
   }
 })
-app.get("/register", async (req, res) => {
-  if (req.headers.cookie) {
-    res.redirect("/");
-  } else {
-    res.render("signup.ejs");
-  }
-})
+
 app.post("/login", async (req, res) => {
   try {
     const result = await axios.post(`${API_URL}/auth/login`, req.body);
@@ -82,6 +92,15 @@ app.post("/login", async (req, res) => {
     }
   }
 });
+
+app.get("/register", async (req, res) => {
+  if (req.headers.cookie) {
+    res.redirect("/");
+  } else {
+    res.render("signup.ejs");
+  }
+})
+
 app.post("/register", async (req, res) => {
   try {
     if (req.body.password !== req.body.repassword) {
@@ -106,6 +125,7 @@ app.post("/register", async (req, res) => {
     }
   }
 });
+
 app.get("/logout", async (req, res) => {
   try {
     const result = await axios.get(`${API_URL}/auth/logout`);
@@ -125,31 +145,29 @@ app.get("/logout", async (req, res) => {
     }
   }
 });
+
 app.get("/product/:id", async (req, res) => {
   try {
     const result = await axios.get(`${API_URL}/product/`, { params: { id: req.params.id } });
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    const cameras = await axios.get(`${API_URL}/camera`);
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { product: result.data[0], message: "", pcs: pcs.data, cameras: cameras.data});
+    res.render('Product.ejs', { product: result.data[0], message: ""});
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
   }
 })
+
 app.get("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const pcs = await axios.get(`${API_URL}/laptop`);
-      const cameras = await axios.get(`${API_URL}/camera`);
       const result = await axios.get(`${API_URL}/cart`, {
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      res.render("cart.ejs", { data: result.data, pcs: pcs.data, cameras: cameras.data });
+      res.render("cart.ejs", { data: result.data});
     } else {
       res.redirect("/login");
     }
@@ -158,11 +176,10 @@ app.get("/cart", async (req, res) => {
     res.status(500).send('Lỗi máy chủ');
   }
 });
+
 app.post("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const pcs = await axios.get(`${API_URL}/laptop`);
-      const cameras = await axios.get(`${API_URL}/camera`);
       const product = JSON.parse(req.body.addproduct);
       const result = await axios.post(`${API_URL}/cart`,{
         product
@@ -171,8 +188,7 @@ app.post("/cart", async (req, res) => {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      //có thể truyền json product thì tốt không thì truyền product_id cũng đc, khớp sau
-      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng", pcs: pcs.data, cameras: cameras.data});
+      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng"});
     } else {
       res.redirect("/login");
     }
@@ -185,8 +201,6 @@ app.post("/cart", async (req, res) => {
 app.post("/buynow", async (req, res) => {
   try {
     if (req.headers.cookie) {
-      const pcs = await axios.get(`${API_URL}/laptop`);
-      const cameras = await axios.get(`${API_URL}/camera`);
       const product = JSON.parse(req.body.buynowproduct);
       const result = await axios.post(`${API_URL}/buynow`,{
         product
@@ -202,7 +216,7 @@ app.post("/buynow", async (req, res) => {
         }
       });
 
-      res.render("cart.ejs", { data: new_data.data, pcs: pcs.data, cameras: cameras.data });
+      res.render("cart.ejs", { data: new_data.data});
     } else {
       res.redirect("/login");
     }
@@ -236,24 +250,7 @@ app.get("/cart/delete/:id", async (req, res) => {
   }
 });
 
-app.post("/cart/checkout", async (req, res) => {
-  try {
-    if (req.headers.cookie) {
-      const result = await axios.post(`${API_URL}/cart/checkout`, {
-        headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
-        }
-      });
-      res.status(200).json(result.data);
-      // res.redirect("/cart");
-    } else {
-      res.redirect("/login");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Lỗi máy chủ');
-  }
-});
+
 
 app.get("/payment", async (req, res) => {
   try {
@@ -273,23 +270,34 @@ app.get("/payment", async (req, res) => {
   }
 });
 
-app.get("/laptop", async(req, res) =>{
- try {
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    res.render("laptop.ejs", { pcs: pcs.data});
+app.post("/cart/checkout", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const result = await axios.post(`${API_URL}/checkout`, {
+          address: "address",
+          note: "note",
+          paymentMethod: "cod"
+      },{
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      res.status(200).json(result.data);
+      // render man hinh thong bao thanh cong
+      setTimeout(
+        res.redirect("/"),5000
+      )
+      //sau 5s se tu dong tro ve man hinh chinh
+    } else {
+      res.redirect("/login");
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
   }
 });
 
-app.get("/camera", async(req, res) =>{
- try {
-    const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("camera.ejs", {cameras: cameras.data});
-  } catch (error) {
-    console.log(error);
-  }
-});
+
 
 
 app.listen(port, () => {

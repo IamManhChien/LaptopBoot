@@ -124,11 +124,18 @@ const cartController = {
             let result = await models.order_items.findAll({ where: { order_id: order.id} });
             let total_price = 0;
             result.forEach(
-                (item) =>{
+                async (item) =>{
                     total_price += item.quantity * item.price;
+                    let tmp = await models.products.findOne({ where: { id: item.product_id} });
+                    tmp.soluong = tmp.soluong-item.quantity;
+                    await tmp.save();
                 }
             )
             order.total_price = total_price;
+            order.payment_method =  req.body.paymentMethod;
+            order.shipping_address = req.body.address;
+            order.note = req.body.note;
+            order.status = "confirmed"
             await order.save();
             res.status(200).json({order: order, order_item:result});
         } catch (error) {
