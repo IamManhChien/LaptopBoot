@@ -906,3 +906,51 @@ border-bottom-right-radius: .3rem;
     text-decoration: none;
     border: solid 1px rgb(233, 233, 233);
 }
+
+/* Style của successpage */
+
+.sucess-body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
+    padding-top: 100px;
+}
+
+.success_icon{
+    height: 65px;
+    width: 65px;
+}
+
+.success_icon img{
+    height: 65px;
+    width: 65px;
+}
+
+.success_message{
+    color: green;
+    font-weight: bold;
+    height: 50px;
+    padding-top: 12px;
+}
+
+.success_submessage{
+    height: 50px;
+    padding-top: 12px;
+}
+
+.success_buynext{
+    margin-top: 15px;
+}
+
+.success_buynext button{
+    height: 50px;
+    width: 200px;
+    border: 1px solid #a9a5a5;
+    border-radius: 10px;
+}
+
+.success_buynext button:hover{
+    background-color: rgb(115, 219, 115);
+    color: white;
+}

@@ -274,20 +274,15 @@ app.post("/cart/checkout", async (req, res) => {
   try {
     if (req.headers.cookie) {
       const result = await axios.post(`${API_URL}/checkout`, {
-          address: "address",
-          note: "note",
+          address: req.body.address,
+          note: req.body.note,
           paymentMethod: "cod"
       },{
         headers: {
           Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
         }
       });
-      res.status(200).json(result.data);
-      // render man hinh thong bao thanh cong
-      setTimeout(
-        res.redirect("/"),5000
-      )
-      //sau 5s se tu dong tro ve man hinh chinh
+      res.status(200).render("success.ejs");
     } else {
       res.redirect("/login");
     }

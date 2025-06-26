@@ -45,10 +45,10 @@
                                 <label><input type="radio" name="delivery" value="home" checked> Giao hàng tận nơi</label>
                                 <label><input type="radio" name="delivery" value="store"> Nhận tại cửa hàng</label>
                             </div>
-                            <input class="recieve-input1" type="text" placeholder="Tỉnh/Thành Phố, Quận/Huyện, Phường Xã">
+                            <input id="address_text_input" class="recieve-input1" type="text" placeholder="Tỉnh/Thành Phố, Quận/Huyện, Phường Xã">
                         
                             <div class="recieve-note">
-                                <input class="recieve-input2" type="text" name="recieve-user-note" placeholder="Ghi chú (Ví dụ: Hãy gọi tôi khi chuẩn bị hàng xong)">
+                                <input id="note_text_input" class="recieve-input2" type="text" name="recieve-user-note" placeholder="Ghi chú (Ví dụ: Hãy gọi tôi khi chuẩn bị hàng xong)">
                             </div>
                         
                             <div class="recieve-checkbox1">
@@ -110,6 +110,8 @@
                             </table>
                         </div>
                         <div>
+                            <input type="hidden" name="address" id="address__hidden_input">
+                            <input type="hidden" name="note" id="note_hidden_input">
                             <button class="product-cart-payment-button" type="submit">Đặt hàng</button>
                         </div>
                     </form>
@@ -118,6 +120,25 @@
 
             </div>
         </div>
+
+        <script>
+            const address__hidden_input = document.getElementById('address__hidden_input');
+            const address_text_input = document.getElementById('address_text_input');
+
+            address_text_input.addEventListener('input', () => {
+                address__hidden_input.value = address_text_input.value;
+            });
+        </script>
+        
+        <script>
+            const note_text_input = document.getElementById('note_text_input');
+            const note_hidden_input = document.getElementById('note_hidden_input');
+
+            note_text_input.addEventListener('input', () => {
+                note_hidden_input.value = note_text_input.value;
+            });
+        </script>
+
 
         <%- include("components/footer.ejs") %>
 
