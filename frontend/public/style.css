@@ -948,9 +948,11 @@ border-bottom-right-radius: .3rem;
     width: 200px;
     border: 1px solid #a9a5a5;
     border-radius: 10px;
+    background-color: #39B54A;
+    color: white;
 }
 
 .success_buynext button:hover{
-    background-color: rgb(115, 219, 115);
+    background-color: rgb(0, 158, 0);
     color: white;
 }
