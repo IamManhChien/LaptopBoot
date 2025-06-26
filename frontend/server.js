@@ -65,7 +65,7 @@ app.get("/camera", async(req, res) =>{
 
 app.get("/login", async (req, res) => {
   if (req.headers.cookie) {
-    res.render("accountpage.ej");
+    res.render("accountpage.ejs");
   } else {
     res.render("signin.ejs", { message: "" });
   }
