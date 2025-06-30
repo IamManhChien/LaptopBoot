@@ -1,0 +1,60 @@
+<%- include("components/head.ejs") %>
+
+<%- include("components/header.ejs") %>
+
+<div class="product-title2">
+                <p style="font-weight: bold;"><a style="text-decoration: none; color: rgb(160, 1, 1);" href="/"> Trang chủ </a> >Tài khoản</p>
+        </div>
+
+<div class="account-page-container">
+    <div class="account-left">
+        <div class="account-img">
+            <img src="/icons/profile-user.png" alt="">
+        </div>
+        <div class="account-detail-button-container">
+            <a href="/login"><button>Thông tin tài khoản</button></a>
+        </div>
+        <div class="account-detail-button-container">
+            <a href="/customer/order"><button>Lịch sử mua hàng</button></a>
+        </div>
+        <div class="account-logout-button-container">
+            <a href="/logout"><img src="/icons/logout.png" alt="">Đăng xuất</a>
+        </div>
+    </div>
+    <div class="account-right">
+        <table style="margin-top: 0px;" class="product-cart-table-1">
+            <thead>
+                <tr style="font-weight: bold; background-color: lightgray;">
+                    <th>Mã đơn hàng</th>
+                    <th>Trạng thái</th>
+                    <th>Tổng thanh toán</th>
+                    <th>Địa chỉ giao hàng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(item=> { %>
+                    <tr>
+                        <td style="width: 100px; height: auto;">
+                            <%= item.id %>
+                        </td>
+                        <td style="color: green; font-weight: bold;">
+                            Đã xác nhận
+                        <td style="color: red">
+                            <%= Number(item.total_price).toLocaleString('vi-VN') %> <sup>đ</sup>
+                        </td>
+                        <td >
+                            <%= item.shipping_address %>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+
+
+
+<%- include("components/footer.ejs") %>
+
+<%- include("components/foot.ejs") %>

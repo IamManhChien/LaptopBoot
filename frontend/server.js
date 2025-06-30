@@ -319,7 +319,8 @@ app.get("/customer/order", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-      console.log(result);
+      res.status(200).render("historybuy.ejs", {data: result.data});
+      // res.status(200).json(result.data);
     } else {
       res.redirect("/login");
     }
