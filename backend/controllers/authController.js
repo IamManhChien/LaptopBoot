@@ -63,7 +63,8 @@ const authController = {
         }
     },
     requestRefreshToken: async (req, res) => {
-        const refreshToken = req.cookies.refreshToken;
+        try {
+            const refreshToken = req.body.refreshToken;
         if (!refreshToken) {
             return res.status(401).json("You're not authenticated");
         }
@@ -86,6 +87,9 @@ const authController = {
             });
             res.status(200).json(newAccessToken);
         });
+        } catch (error) {
+            res.status(500).json(error);
+        }
     },
     logout:async (req, res) => {
         try {

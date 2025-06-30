@@ -45,19 +45,19 @@ app.get("/", async (req, res) => {
   }
 })
 
-app.get("/laptop", async(req, res) =>{
- try {
+app.get("/laptop", async (req, res) => {
+  try {
     const pcs = await axios.get(`${API_URL}/laptop`);
-    res.render("laptop.ejs", { pcs: pcs.data});
+    res.render("laptop.ejs", { pcs: pcs.data });
   } catch (error) {
     console.log(error);
   }
 });
 
-app.get("/camera", async(req, res) =>{
- try {
+app.get("/camera", async (req, res) => {
+  try {
     const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("camera.ejs", {cameras: cameras.data});
+    res.render("camera.ejs", { cameras: cameras.data });
   } catch (error) {
     console.log(error);
   }
@@ -152,7 +152,7 @@ app.get("/product/:id", async (req, res) => {
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { product: result.data[0], message: ""});
+    res.render('Product.ejs', { product: result.data[0], message: "" });
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
@@ -162,12 +162,15 @@ app.get("/product/:id", async (req, res) => {
 app.get("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
       const result = await axios.get(`${API_URL}/cart`, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.render("cart.ejs", { data: result.data});
+      res.render("cart.ejs", { data: result.data });
     } else {
       res.redirect("/login");
     }
@@ -181,14 +184,17 @@ app.post("/cart", async (req, res) => {
   try {
     if (req.headers.cookie) {
       const product = JSON.parse(req.body.addproduct);
-      const result = await axios.post(`${API_URL}/cart`,{
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
+      const result = await axios.post(`${API_URL}/cart`, {
         product
       }, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.status(200).render('Product.ejs', {product: product, message: "Đã thêm vào giỏ hàng"});
+      res.status(200).render('Product.ejs', { product: product, message: "Đã thêm vào giỏ hàng" });
     } else {
       res.redirect("/login");
     }
@@ -202,21 +208,24 @@ app.post("/buynow", async (req, res) => {
   try {
     if (req.headers.cookie) {
       const product = JSON.parse(req.body.buynowproduct);
-      const result = await axios.post(`${API_URL}/buynow`,{
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
+      const result = await axios.post(`${API_URL}/buynow`, {
         product
       }, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
+      res.redirect("/cart");
+      // const new_data = await axios.get(`${API_URL}/cart`, {
+      //   headers: {
+      //     Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+      //   }
+      // });
 
-      const new_data = await axios.get(`${API_URL}/cart`, {
-        headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
-        }
-      });
-
-      res.render("cart.ejs", { data: new_data.data});
+      // res.render("cart.ejs", { data: new_data.data });
     } else {
       res.redirect("/login");
     }
@@ -230,13 +239,14 @@ app.post("/buynow", async (req, res) => {
 app.get("/cart/delete/:id", async (req, res) => {
   try {
     const productId = req.params.id;
-    const token = req.headers.cookie?.split("=")[1];
-
     if (token) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
       const result = await axios.delete(`${API_URL}/cart`, {
         params: { product_id: productId },
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
 
@@ -255,12 +265,15 @@ app.get("/cart/delete/:id", async (req, res) => {
 app.get("/payment", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
       const result = await axios.get(`${API_URL}/cart`, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.render("paymentpage.ejs", { data: result.data});
+      res.render("paymentpage.ejs", { data: result.data });
     } else {
       res.redirect("/login");
     }
@@ -273,13 +286,16 @@ app.get("/payment", async (req, res) => {
 app.post("/cart/checkout", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
       const result = await axios.post(`${API_URL}/checkout`, {
-          address: req.body.address,
-          note: req.body.note,
-          paymentMethod: "cod"
-      },{
+        address: req.body.address,
+        note: req.body.note,
+        paymentMethod: "cod"
+      }, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
       res.status(200).render("success.ejs");
@@ -295,9 +311,12 @@ app.post("/cart/checkout", async (req, res) => {
 app.get("/customer/order", async (req, res) => {
   try {
     if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
       const result = await axios.get(`${API_URL}/order`, {
         headers: {
-          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+          Authorization: `Bearer ${access_token.data}`
         }
       });
       console.log(result);
