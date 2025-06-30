@@ -292,6 +292,23 @@ app.post("/cart/checkout", async (req, res) => {
   }
 });
 
+app.get("/customer/order", async (req, res) => {
+  try {
+    if (req.headers.cookie) {
+      const result = await axios.get(`${API_URL}/order`, {
+        headers: {
+          Authorization: `Bearer ${req.headers.cookie.split("=")[1]}`
+        }
+      });
+      console.log(result);
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Lỗi máy chủ');
+  }
+});
 
 
 

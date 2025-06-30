@@ -1,8 +1,9 @@
-import { QueryTypes } from "sequelize";
+import { Op, QueryTypes } from "sequelize";
 import sequelize from '../models/db.js';
 import initModels from '../models/init-models.js';
 const models = initModels(sequelize);
 let order = null;
+let orders = [];
 const cartController = {
     getCart: async (req, res) => {
         try {
@@ -153,6 +154,43 @@ const cartController = {
             console.log(error);
             res.status(404).json(error)
         }
-    }
+    },
+    getOrder: async (req, res) => {
+        try {
+            orders = await models.orders.findAll({
+                where: {
+                    userid: req.user.username,
+                    status: {
+                        [Op.ne]: 'pending'
+                    },
+                }
+            });
+            const result = await Promise.all(
+                orders.map(async (order) => {
+                    let tmp = order.toJSON();
+                    const items = await models.order_items.findAll({
+                        where: { order_id: order.id },
+                        include: [
+                            {
+                                model: models.products,
+                                as: 'product',
+                                attributes: ['ten', 'img', 'soluong']
+                            }
+                        ]
+                    });
+                    tmp.items = items;
+                    return tmp;
+                })
+            );
+
+
+            return res.status(200).json(result);
+        } catch (error) {
+            console.log(error);
+
+            res.status(404).json(error)
+        }
+
+    },
 }
 export default cartController;
