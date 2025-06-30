@@ -9,15 +9,15 @@ import cartRoute from "./routes/cart.js";
 import cookieParser from "cookie-parser";
 dotenv.config(); 
 // Test kết nối & sync
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Kết nối thành công!');
-    await sequelize.sync();
-  } catch (err) {
-    console.error('Lỗi:', err);
-  }
-})();
+// (async () => {
+//   try {
+//     await sequelize.authenticate();
+//     console.log('Kết nối thành công!');
+//     await sequelize.sync();
+//   } catch (err) {
+//     console.error('Lỗi:', err);
+//   }
+// })();
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
