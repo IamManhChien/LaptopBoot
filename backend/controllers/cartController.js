@@ -138,8 +138,12 @@ const cartController = {
                 async (item) => {
                     total_price += item.quantity * item.price;
                     let tmp = await models.products.findOne({ where: { id: item.product_id } });
-                    tmp.soluong = tmp.soluong - item.quantity;
-                    await tmp.save();
+                    if (tmp.soluong >= item.quantity) {
+                        tmp.soluong = tmp.soluong - item.quantity;
+                        await tmp.save();
+                    } else {
+                        throw new Error(`San pham ${item.product_id} trong kho khong du`);
+                    }
                 }
             )
             order.total_price = total_price;
