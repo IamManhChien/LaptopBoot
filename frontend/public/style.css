@@ -884,13 +884,7 @@ border-bottom-right-radius: .3rem;
 /* Style cua category page */
 
 
-.category-product-grid-page{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 15px;
-    width: 80%;
-    margin-left: 10%;
-}
+
 
 /* Style của xem thêm */
 
@@ -957,3 +951,187 @@ border-bottom-right-radius: .3rem;
     background-color: rgb(0, 158, 0);
     color: white;
 }
+
+/* Submenu Styles */
+.dropdown-submenu {
+  position: relative;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  background-color: white;
+  min-width: 120px;
+  border: 1px solid #ddd;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+  border-bottom: 10px;
+  border-radius: 15px;
+}
+
+/* Hiển thị submenu khi hover */
+.dropdown-submenu:hover > .submenu {
+  display: block;
+}
+
+/* Loại bỏ các dấu chấm tròn nếu xuất hiện */
+.submenu li {
+  list-style: none;
+}
+
+/* Định dạng link con */
+.submenu a {
+  display: block;
+  padding: 8px 16px;
+  color: black;
+  text-decoration: none;
+}
+
+.submenu a:hover {
+  background-color: lightgray;
+}
+
+.submenu-img{
+    width: 100%;
+    height: 20px;
+    object-fit: contain;
+}
+
+
+
+/* Grid-product-item */
+
+.grid-category-addfilter-container{
+    display: grid;
+    grid-template-columns: 2.3fr 8fr;
+}
+
+.category-product-grid-page{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.category-grid-product-item{
+    background-color: white;
+}
+
+.category-grid-product-item-img{
+    width: 70%;
+    height: 150px;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 15px;
+    object-fit: contain;
+}
+
+.category-grid-product-item-img:hover {
+    transform: translateY(-10px);
+    transition: transform 0.5s ease; 
+}
+
+.category-grid-product-item-name {
+    height: 80px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: small;
+    text-wrap: wrap;
+    word-break: break-all;
+}
+
+.category-grid-product-item-price{
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
+}
+
+/* Filter options */
+.filter-option{
+    height: 500px;
+    width: 97%;
+    background-color: white;
+    margin-top: 30px;
+    overflow: auto;
+}
+
+.filter-title{
+    font-weight: bold; 
+    padding: 2px;
+    height: 47px;
+    padding-top: 8px;
+    border-bottom: solid 1px lightgray;
+    padding-left: 15px;
+}
+
+.filter-productor-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding-left: 10px;
+    margin-top: 10px;
+}
+
+.filter-productor-img{
+    width: 100%;
+    height: 20px;
+    object-fit: contain;
+}
+
+.filter-productor-img-div{
+    display: flex;
+    width: 95%;
+    height: 35px;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-productor-img-div:hover{
+    cursor: pointer;
+}
+
+.price-filter-checkbox{
+    padding-left: 15px;
+}
+
+.price-filter-checkbox input{
+    accent-color: red;
+}
+
+.pricefiltersubmit{
+    height: 25px;
+    width: 100px;
+    background-color: lightgray;
+    border: solid 1px rgb(114, 111, 111);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.filter-productor-type-img-div{
+    display: flex;
+    height: 85px;
+    width: 95%;
+    border: solid 1px lightgray;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-productor-type-img{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
+
+
+

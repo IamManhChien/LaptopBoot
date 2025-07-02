@@ -239,7 +239,7 @@ app.post("/buynow", async (req, res) => {
 app.get("/cart/delete/:id", async (req, res) => {
   try {
     const productId = req.params.id;
-    if (token) {
+    if (req.headers.cookie) {
       const access_token = await axios.post(`${API_URL}/auth/refresh`, {
         refreshToken: `${req.headers.cookie.split("=")[1]}`
       });
@@ -249,7 +249,6 @@ app.get("/cart/delete/:id", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-
       res.redirect("/cart");
     } else {
       res.redirect("/login");

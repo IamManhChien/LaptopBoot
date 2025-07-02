@@ -8,19 +8,100 @@
             > Laptop</p>
     </div>
 
+    <div class="grid-category-addfilter-container">
+
+    <div style="height: 570px;" class="filter-option">
+        <div class="filter-title">
+            <img style="height: 28px; width: 28px;" src="/icons/filter.png" alt="">
+            Bộ lọc tìm kiếm
+        </div>
+        <div style="font-weight: 500; padding-left: 15px; margin-top: 10px;">Hãng sản xuất</div>
+        <div class="filter-productor-grid">
+            <div class="filter-productor-img-div">
+                <a href="/laptop/acer">
+                <img class="filter-productor-img" src="/laptoplogo/acer.webp" alt="">
+                </a>
+            </div>
+            <div class="filter-productor-img-div">
+                <a href="/laptop/asus">
+                <img class="filter-productor-img" src="/laptoplogo/asus.webp" alt="">
+                </a>
+            </div>
+            <div class="filter-productor-img-div">
+                <a href="/laptop/dell">
+                <img class="filter-productor-img" src="/laptoplogo/dell.webp" alt="">
+                </a>
+            </div>
+             <div class="filter-productor-img-div">
+                <a href="/laptop/hp">
+                <img class="filter-productor-img" src="/laptoplogo/hp.webp" alt="">
+                </a>
+            </div>
+             <div class="filter-productor-img-div">
+                <a href="/laptop/lenovo">
+                <img class="filter-productor-img" src="/laptoplogo/lenovo.webp" alt="">
+                </a>
+            </div>
+             <div class="filter-productor-img-div">
+                <a href="/laptop/macbook">
+                <img class="filter-productor-img" src="/laptoplogo/macbook.webp" alt="">
+                </a>
+            </div>
+             <div class="filter-productor-img-div">
+                <a href="/laptop/msi">
+                <img class="filter-productor-img" src="/laptoplogo/msi.webp" alt="">
+                </a>
+            </div>
+        </div>
+
+        <form action="/pricefilter" method="get" class="price-filter">
+            <div style="font-weight: 500; padding-left: 15px; margin-top: 10px; margin-bottom: 10px; border-top: solid 1px rgb(219, 216, 216);">Mức giá</div>
+            <div class="price-filter-checkbox">
+                <label><input type="checkbox">Tất cả</label>
+            </div>
+            <div class="price-filter-checkbox">
+                <label><input type="checkbox">Dưới 10 triệu</label>
+            </div>
+            <div class="price-filter-checkbox">
+                <label><input type="checkbox">Từ 15 - 20 triệu</label>
+            </div>
+            <div class="price-filter-checkbox">
+                <label><input type="checkbox">Trên 20 triệu</label>
+            </div>
+            <div style="padding-left: 10px; margin-top: 10px;">
+                <button class="pricefiltersubmit" type="submit">Áp dụng</button>
+            </div>
+        </form>
+
+        <div style="font-weight: 500; padding-left: 15px; margin-top: 15px; border-top: solid 1px rgb(219, 216, 216);">Nhu cầu</div>
+        <div class="filter-productor-grid">
+            <div class="filter-productor-type-img-div">
+                <a href="/laptop/gaming">
+                    <img class="filter-productor-type-img" src="/laptoplogo/gaming.png" alt="">
+                </a>
+            </div>
+            <div class="filter-productor-type-img-div">
+                <a href="/laptop/office">
+                    <img class="filter-productor-type-img" src="/laptoplogo/office.png" alt="">
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div style="margin-top: 30px;" class="category-product-grid-page">
         <% pcs.forEach(function(item) { %>
-            <div id="<%=item.id%>" data-id="<%=item.id%>" style="height: 300px; width: 186.6px;"
-                class="slider-item swiper-slide">
-                <img class="slider-item-image" src="<%= item.img%>" alt="">
-                <p class="slider-item-name">
+            <div id="<%=item.id%>" data-id="<%=item.id%>" style="height: 300px; width: 97%;" class="category-grid-product-item">
+                <img class="category-grid-product-item-img" src="<%= item.img%>" alt="">
+                <p class="category-grid-product-item-name">
                     <%= item.ten %>
                 </p>
-                <p class="slider-item-price">
-                    <%= item.gia %>
+                <p class="category-grid-product-item-price">
+                    <%= item.gia %> <span>đ</span>
                 </p>
             </div>
             <% }); %>
+    </div>
+
     </div>
 
 </div>
