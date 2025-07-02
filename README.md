@@ -1,6 +1,6 @@
 #Hướng dẫn khởi động website Laptopboot#
-##B1: Cài các tài nguyên cần thiết
-###Frontend:
+##Cài các tài nguyên cần thiết
+###Frontend
 ```
 cd frontend
 npm i
@@ -11,16 +11,16 @@ cd backend
 npm i
 ```
 
-##B2:Khởi tạo database(Postgres)
+##Khởi tạo database(Postgres)
 
-##B3: Khởi động
+##Khởi động
 
-###Frontend:
+###Frontend
 ```
 cd frontend
 nodemon sever.js
 ```
-###Tương tự với Backend</h5>
+###Tương tự với Backend
 ```
 cd backend
 nodemon index.js
