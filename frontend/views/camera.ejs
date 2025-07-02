@@ -8,19 +8,81 @@
             > Camera</p>
     </div>
 
+
+    <div class="grid-category-addfilter-container">
+        <div class="filter-option">
+            <div class="filter-title">
+                <img style="height: 28px; width: 28px;" src="/icons/filter.png" alt="">
+                Bộ lọc tìm kiếm
+            </div>
+            <div style="font-weight: 500; padding-left: 15px; margin-top: 10px;">Hãng sản xuất</div>
+            <div class="filter-productor-grid">
+                <div class="filter-productor-img-div">
+                    <a href="/camera/365">
+                        <img class="filter-productor-img" src="/cameralogo/365.png" alt="">
+                    </a>
+                </div>
+                <div class="filter-productor-img-div">
+                    <a href="/camera/botslab">
+                        <img class="filter-productor-img" src="/cameralogo/botslab.png" alt="">
+                    </a>
+                </div>
+                <div class="filter-productor-img-div">
+                    <a href="/camera/ezviz">
+                        <img class="filter-productor-img" src="/cameralogo/ezviz.webp" alt="">
+                    </a>
+                </div>
+                <div class="filter-productor-img-div">
+                    <a href="/camera/imou">
+                        <img class="filter-productor-img" src="/cameralogo/imou.png" alt="">
+                    </a>
+                </div>
+                <div class="filter-productor-img-div">
+                    <a href="/camera/tiandy">
+                        <img class="filter-productor-img" src="/cameralogo/tiandy.png" alt="">
+                    </a>
+                </div>
+                <div class="filter-productor-img-div">
+                    <a href="/camera/link">
+                        <img class="filter-productor-img" src="/cameralogo/tplink.png" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <form action="/pricefilter" method="get" class="price-filter">
+                <div style="font-weight: 500; padding-left: 15px; margin-top: 10px; margin-bottom: 10px; border-top: solid 1px rgb(219, 216, 216);">Mức giá</div>
+                <div class="price-filter-checkbox">
+                    <label><input type="checkbox">Tất cả</label>
+                </div>
+                <div class="price-filter-checkbox">
+                    <label><input type="checkbox">Dưới 500k</label>
+                </div>
+                <div class="price-filter-checkbox">
+                    <label><input type="checkbox">Từ 500 - 600k</label>
+                </div>
+                <div class="price-filter-checkbox">
+                    <label><input type="checkbox">Trên 600k</label>
+                </div>
+                <div style="padding-left: 10px; margin-top: 10px;">
+                    <button class="pricefiltersubmit" type="submit">Áp dụng</button>
+                </div>
+            </form>
+
+            
+        </div>
     <div style="margin-top: 30px;" class="category-product-grid-page">
         <% cameras.forEach(function(item) { %>
-            <div id="<%=item.id%>" data-id="<%=item.id%>" style="height: 300px; width: 186.6px;"
-                class="slider-item swiper-slide">
-                <img class="slider-item-image" src="<%= item.img%>" alt="">
-                <p class="slider-item-name">
+            <div id="<%=item.id%>" data-id="<%=item.id%>" style="height: 300px; width: 97%;" class="category-grid-product-item">
+                <img class="category-grid-product-item-img" src="<%= item.img%>" alt="">
+                <p class="category-grid-product-item-name">
                     <%= item.ten %>
                 </p>
-                <p class="slider-item-price">
-                    <%= item.gia %>
+                <p class="category-grid-product-item-price">
+                    <%= item.gia %> <span>đ</span>
                 </p>
             </div>
             <% }); %>
+    </div>
     </div>
 
 </div>
