@@ -249,7 +249,6 @@ app.get("/cart/delete/:id", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-
       res.redirect("/cart");
     } else {
       res.redirect("/login");
