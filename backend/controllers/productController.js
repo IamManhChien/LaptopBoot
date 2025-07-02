@@ -11,7 +11,9 @@ const productController = {
         res.json(result);
     },
     getLaptopByBrand: async (req, res) => {
-        const brand = req.params.brand.toLowerCase();
+        console.log(req);
+        
+        const brand = req.query.brand.toLowerCase();
         const mucGia = req.query.mucGia;
         let price = null;
         switch (mucGia) {
@@ -66,7 +68,7 @@ const productController = {
         res.json(result);
     },
     getCameraByBrand: async (req, res) => {
-        const brand = req.params.brand.toLowerCase();
+        const brand = req.query.brand.toLowerCase();
         const mucGia = req.query.mucGia;
         let price = null;
         switch (mucGia) {
