@@ -68,14 +68,13 @@ const authController = {
         if (!refreshToken) {
             return res.status(401).json("You're not authenticated");
         }
-        if (refreshTokens.includes(refreshToken)) {
+        if (!refreshTokens.includes(refreshToken)) {
             return res.status(403).json("Refresh token is not valid")
         }
         jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err, user) => {
             if (err) {
                 console.log(err);
             }
-            refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
             const newAccessToken = authController.generateAccessToken(user);
             const newRefreshToken = authController.generateRefreshToken(user);
             refreshTokens.push(newRefreshToken);
