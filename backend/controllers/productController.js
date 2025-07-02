@@ -19,7 +19,7 @@ const productController = {
                 price = [0, 10000000];
                 break;
             case "10-15":
-                price = [10000000,15000000 ];
+                price = [10000000, 15000000];
                 break;
             case "15-20":
                 price = [15000000, 20000000];
@@ -70,11 +70,14 @@ const productController = {
         const mucGia = req.query.mucGia;
         let price = null;
         switch (mucGia) {
-            case "duoi-1":
-                price = [0, 1000000];
+            case "0-500":
+                price = [0, 500000];
                 break;
-            case "tren-1":
-                price = [1000000];
+            case "500-600":
+                price = [500000, 600000];
+                break;
+            case "tren-600":
+                price = [600000];
                 break;
             default:
                 price = null;

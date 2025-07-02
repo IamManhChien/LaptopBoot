@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/Users.js";
-let refreshTokens = [];
+// let refreshTokens = [];
 const authController = {
     registerUser: async (req, res) => {
         try {
@@ -49,7 +49,7 @@ const authController = {
             }
             const access_token = authController.generateAccessToken(user);
             const refresh_token = authController.generateRefreshToken(user);
-            refreshTokens.push(refresh_token);
+            // refreshTokens.push(refresh_token);
             res.cookie('refreshToken', refresh_token, {
                 httpOnly: true,
                 secure: false,             
@@ -68,22 +68,22 @@ const authController = {
         if (!refreshToken) {
             return res.status(401).json("You're not authenticated");
         }
-        if (!refreshTokens.includes(refreshToken)) {
-            return res.status(403).json("Refresh token is not valid")
-        }
+        // if (!refreshTokens.includes(refreshToken)) {
+        //     return res.status(403).json("Refresh token is not valid")
+        // }
         jwt.verify(refreshToken, process.env.JWT_REFRESH_KEY, (err, user) => {
             if (err) {
                 console.log(err);
             }
             const newAccessToken = authController.generateAccessToken(user);
             const newRefreshToken = authController.generateRefreshToken(user);
-            refreshTokens.push(newRefreshToken);
-            res.cookie('refreshToken', newRefreshToken, {
-                httpOnly: true,
-                secure: false,             
-                sameSite: 'Lax',
-                maxAge: 24 * 60 * 60 * 1000 * 200     
-            });
+            // refreshTokens.push(newRefreshToken);
+            // res.cookie('refreshToken', newRefreshToken, {
+            //     httpOnly: true,
+            //     secure: false,             
+            //     sameSite: 'Lax',
+            //     maxAge: 24 * 60 * 60 * 1000 * 200     
+            // });
             res.status(200).json(newAccessToken);
         });
         } catch (error) {

@@ -130,6 +130,25 @@ const cartController = {
             res.status(404).json(error)
         }
     },
+    changeQuantity: async (req, res) => {
+        try {
+            let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.query.product_id } });
+            if (req.query.action == 'add') {
+                result.quantity += 1;
+            } else if (req.query.action == 'sub') {
+                if (result.quantity>1)
+                    result.quantity -= 1;
+                else{
+                    result.destroy();
+                }
+            }
+            await result.save();
+            res.status(200).json(result);
+        } catch (error) {
+            console.log(error);
+            res.status(404).json(error)
+        }
+    },
     checkOut: async (req, res) => {
         try {
             let result = await models.order_items.findAll({ where: { order_id: order.id } });
