@@ -12,6 +12,20 @@ npm i
 ```
 
 ## Khởi tạo database(Postgres)
+# Cách1
+Tạo DataBase và import backupfile (Yêu cầu PostgreSQL 17.5):
+```bash
+cd backend
+createdb -U postgres <database_name>
+psql -U <username> -d <database_name> -f mydb_backup.sql
+```
+Config file .env
+```
+DB_NAME = <database_name>
+DB_USER = <username>
+DB_PASS = <password>
+DB_HOST = 'localhost'
+```
 
 ## Khởi động
 
