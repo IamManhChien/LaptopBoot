@@ -15,7 +15,7 @@ const Product = sequelize.define('products', {
       allowNull: true
     },
     gia: {
-      type: DataTypes.STRING,
+      type: DataTypes.BIGINT,
       allowNull: true
     },
     mota: {

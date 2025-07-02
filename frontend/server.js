@@ -54,9 +54,36 @@ app.get("/laptop", async (req, res) => {
   }
 });
 
+app.get("/laptop/:brand", async (req, res) => {
+  try {
+    const mucGia = req.params.mucGia;
+    // const nhuCau = "gaming";
+    const params = {};
+    if (mucGia) params.muc_gia = mucGia;
+    // if (nhuCau) params.nhu_cau = nhuCau;
+    const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
+    res.render("laptop.ejs", { pcs: pcs.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get("/camera", async (req, res) => {
   try {
     const cameras = await axios.get(`${API_URL}/camera`);
+    res.render("camera.ejs", { cameras: cameras.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/camera/:brand", async (req, res) => {
+  try {
+    const mucGia = req.params.mucGia;
+    const params = {};
+    if (mucGia) params.muc_gia = mucGia;
+    // if (nhuCau) params.nhu_cau = nhuCau;
+    const cameras = await axios.get(`${API_URL}/camera/:brand`, { params: params });
     res.render("camera.ejs", { cameras: cameras.data });
   } catch (error) {
     console.log(error);
@@ -318,7 +345,7 @@ app.get("/customer/order", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.status(200).render("historybuy.ejs", {data: result.data});
+      res.status(200).render("historybuy.ejs", { data: result.data });
       // res.status(200).json(result.data);
     } else {
       res.redirect("/login");
