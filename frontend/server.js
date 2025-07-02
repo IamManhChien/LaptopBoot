@@ -218,7 +218,7 @@ app.post("/cart", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.status(200).render('Product.ejs', { product: product, message: "Đã thêm vào giỏ hàng" });
+      res.status(200).render('Product.ejs', { helpers,product: product, message: "Đã thêm vào giỏ hàng" });
     } else {
       res.redirect("/login");
     }
