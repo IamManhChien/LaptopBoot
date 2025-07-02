@@ -56,26 +56,28 @@ app.get("/laptop", async (req, res) => {
 
 app.get("/laptop/:brand", async (req, res) => {
   try {
+    console.log(req);
     const params = {};
     params.brand = req.params.brand
-    if (req.params.mucGia) params.mucGia = mucGia;
+    if (req.query.mucgia) params.mucGia = req.query.mucgia;
     const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
     res.render("laptop.ejs", { helpers,pcs: pcs.data });
-    // res.json(params);
+    // res.json(pcs.data);
   } catch (error) {
     console.log(error);
   }
 });
 
-app.get("/laptop/:brand", async (req, res) => {
+app.get("/laptop/:mucGia", async (req, res) => {
   try {
-    const mucGia = req.params.mucGia;
+    const mucGia = req.query.mucGia;
     // const nhuCau = "gaming";
     const params = {};
     if (mucGia) params.muc_gia = mucGia;
     // if (nhuCau) params.nhu_cau = nhuCau;
     const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
-    res.render("laptop.ejs", { pcs: pcs.data });
+    // res.render("laptop.ejs", { pcs: pcs.data });
+    res.json(params);
   } catch (error) {
     console.log(error);
   }
