@@ -12,7 +12,7 @@ npm i
 ```
 
 ## Khởi tạo database(Postgres)
-# Cách1
+### Cách1
 Tạo DataBase và import backupfile (Yêu cầu PostgreSQL 17.5):
 ```bash
 cd backend
