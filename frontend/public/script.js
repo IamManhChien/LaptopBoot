@@ -27,3 +27,11 @@ document.querySelectorAll('.slider-item').forEach(product => {
   });
 });
 
+document.querySelectorAll('.category-grid-product-item').forEach(product => {
+  product.addEventListener('click', function () {
+    const id = this.dataset.id;
+    window.location.href = `/product/${id}`;
+  });
+});
+
+

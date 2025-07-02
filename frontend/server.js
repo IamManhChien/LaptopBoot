@@ -61,6 +61,7 @@ app.get("/laptop/:brand", async (req, res) => {
     if (req.params.mucGia) params.mucGia = mucGia;
     const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
     res.render("laptop.ejs", { helpers,pcs: pcs.data });
+    // res.json(params);
   } catch (error) {
     console.log(error);
   }
