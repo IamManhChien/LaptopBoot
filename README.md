@@ -1,4 +1,4 @@
-#Hướng dẫn khởi động website Laptopboot#
+#Hướng dẫn khởi động website Laptopboot
 ##Cài các tài nguyên cần thiết
 ###Frontend
 ```
@@ -18,7 +18,7 @@ npm i
 ###Frontend
 ```
 cd frontend
-nodemon sever.js
+nodemon server.js
 ```
 ###Tương tự với Backend
 ```
