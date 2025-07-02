@@ -116,7 +116,7 @@ const productController = {
         });
         res.json(result);
     },
-    getProduct: async (req, res) => {
+    getProductDetail: async (req, res) => {
         const result = await Product.findAll({
             where: {
                 id: `${req.query.id}`
@@ -127,13 +127,9 @@ const productController = {
     search: async (req, res) => {
         const results = await Product.findAll({
             where: {
-                [Op.or]: [
-                    {
-                        ten: {
-                            [Op.iLike]: `%${req.query.keyword}%`
-                        }
-                    }
-                ]
+                ten: {
+                    [Op.iLike]: `%${req.query.keyword}%`
+                }
             }
         });
         res.json(results);
