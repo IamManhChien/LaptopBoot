@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import sequelize from './models/db.js';
 import authRoute from './routes/auth.js';
 import productRoute from "./routes/product.js";
 import cartRoute from "./routes/cart.js";
