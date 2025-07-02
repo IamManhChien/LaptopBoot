@@ -62,6 +62,9 @@
             <div class="price-filter-checkbox">
                 <label><input type="checkbox">Dưới 10 triệu</label>
             </div>
+             <div class="price-filter-checkbox">
+                <label><input type="checkbox">Từ 10 - 25 triệu</label>
+            </div>
             <div class="price-filter-checkbox">
                 <label><input type="checkbox">Từ 15 - 20 triệu</label>
             </div>
@@ -96,7 +99,7 @@
                     <%= item.ten %>
                 </p>
                 <p class="category-grid-product-item-price">
-                    <%= item.gia %> <span>đ</span>
+                    <%= helpers(item.gia) %>
                 </p>
             </div>
             <% }); %>

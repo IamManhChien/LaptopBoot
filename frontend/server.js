@@ -1,12 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import helpers from './helpers/format.js';
 
 const app = express();
 const port = 3000;
 const API_URL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
-
 
 function isValidEmail(username) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -39,7 +39,7 @@ app.get("/", async (req, res) => {
           console.log(err);
         });
     }
-    res.render("homepage.ejs", { pcs: pcs.data, cameras: cameras.data, tops: tops.data });
+    res.render("homepage.ejs", { helpers,pcs: pcs.data, cameras: cameras.data, tops: tops.data });
   } catch (error) {
     console.log(error);
   }
@@ -48,7 +48,19 @@ app.get("/", async (req, res) => {
 app.get("/laptop", async (req, res) => {
   try {
     const pcs = await axios.get(`${API_URL}/laptop`);
-    res.render("laptop.ejs", { pcs: pcs.data });
+    res.render("laptop.ejs", { helpers,pcs: pcs.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/laptop/:brand", async (req, res) => {
+  try {
+    const params = {};
+    params.brand = req.params.brand
+    if (req.params.mucGia) params.mucGia = mucGia;
+    const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
+    res.render("laptop.ejs", { helpers,pcs: pcs.data });
   } catch (error) {
     console.log(error);
   }
@@ -57,7 +69,19 @@ app.get("/laptop", async (req, res) => {
 app.get("/camera", async (req, res) => {
   try {
     const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("camera.ejs", { cameras: cameras.data });
+    res.render("camera.ejs", { helpers,cameras: cameras.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/camera/:brand", async (req, res) => {
+  try {
+    const params = {};
+    params.brand = req.params.brand;
+    if (req.params.mucGia) params.mucGia = mucGia;
+    const cameras = await axios.get(`${API_URL}/camera/:brand`, { params: params });
+    res.render("camera.ejs", { helpers,cameras: cameras.data });
   } catch (error) {
     console.log(error);
   }
@@ -152,7 +176,7 @@ app.get("/product/:id", async (req, res) => {
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { product: result.data[0], message: "" });
+    res.render('Product.ejs', { helpers,product: result.data[0], message: "" });
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
@@ -235,6 +259,51 @@ app.post("/buynow", async (req, res) => {
   }
 });
 
+app.get("/cart/add/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
+      const result = await axios.put(`${API_URL}/cart`, {
+        params: { product_id: productId ,action: `add`},
+        headers: {
+          Authorization: `Bearer ${access_token.data}`
+        }
+      });
+      res.redirect("/cart");
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error("Lỗi xóa giỏ hàng:", error);
+    res.status(500).send("Lỗi máy chủ");
+  }
+});
+
+app.get("/cart/sub/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    if (req.headers.cookie) {
+      const access_token = await axios.post(`${API_URL}/auth/refresh`, {
+        refreshToken: `${req.headers.cookie.split("=")[1]}`
+      });
+      const result = await axios.put(`${API_URL}/cart`, {
+        params: { product_id: productId ,action: `sub`},
+        headers: {
+          Authorization: `Bearer ${access_token.data}`
+        }
+      });
+      res.redirect("/cart");
+    } else {
+      res.redirect("/login");
+    }
+  } catch (error) {
+    console.error("Lỗi xóa giỏ hàng:", error);
+    res.status(500).send("Lỗi máy chủ");
+  }
+});
 
 app.get("/cart/delete/:id", async (req, res) => {
   try {
