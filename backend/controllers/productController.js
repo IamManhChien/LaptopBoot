@@ -26,11 +26,11 @@ const productController = {
         };
         if (price) {
             if (price.length === 2) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.between]: price
                 };
             } else if (price.length === 1) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.gte]: price[0]
                 };
             }
@@ -73,11 +73,11 @@ const productController = {
         };
         if (price) {
             if (price.length === 2) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.between]: price
                 };
             } else if (price.length === 1) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.gte]: price[0]
                 };
             }
@@ -113,11 +113,11 @@ const productController = {
         };
         if (price) {
             if (price.length === 2) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.between]: price
                 };
             } else if (price.length === 1) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.gte]: price[0]
                 };
             }
@@ -157,11 +157,11 @@ const productController = {
         };
         if (price) {
             if (price.length === 2) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.between]: price
                 };
             } else if (price.length === 1) {
-                whereClause.gianumber = {
+                whereClause.gia = {
                     [Op.gte]: price[0]
                 };
             }
