@@ -27,8 +27,8 @@
                                         <td><img style="height: 150px; width: 150px;" class="product_image_cart" src="<%= item.product.img %>" alt=""></td>
                                         <td>
                                             <div style="display: flex; align-items: center; justify-content: space-between;">
-                                                <form style="border: none;" action="/cart/sub/<%= item.product_id %>" method="get">
-                                                    <button style="border: none;">
+                                                <form style="border: none; " action="/cart/sub/<%= item.product_id %>" method="get">
+                                                    <button style="border: none; background-color: white;">
                                                         <img style="height: 15px; width: 15px;" src="/icons/minus.png" alt="">
                                                     </button>
                                                 </form>
@@ -36,14 +36,14 @@
                                                 <%= item.quantity %>
                                             
                                                     <form style="border: none;" action="/cart/add/<%= item.product_id %>" method="get">
-                                                        <button style="border: none;">
+                                                        <button style="border: none; background-color: white;">
                                                             <img style="height: 15px; width: 15px;" src="/icons/plus.png" alt="">
                                                         </button>
                                                     </form>
                                             </div>
                                         </td>
                                         <td style="color: red; font-weight: bold;">
-                                            <%= Number(item.price).toLocaleString('vi-VN') %> <sup>đ</sup>
+                                            <%= (Number(item.price)*item.quantity).toLocaleString('vi-VN') %> <sup>đ</sup>
                                         </td>
                                         <td>
                                             <form action="/cart/delete/<%= item.product_id %>" method="get">
@@ -68,7 +68,7 @@
                                     <tr>
                                         <td>Tạm tính</td>
                                         <td style="text-align: right; font-weight: bold; color: rgb(142, 138, 138); font-size:medium;">
-                                            <%= Number(data.reduce((sum, item)=> Number(sum) + Number(item.price), 0)).toLocaleString('vi-VN')
+                                            <%= Number(data.reduce((sum, item)=> Number(sum) + (Number(item.price)*item.quantity), 0)).toLocaleString('vi-VN')
                                                 %> <sup>đ</sup>
                                         </td>
                                     </tr>
@@ -80,7 +80,7 @@
                                     <tr>
                                         <td>Thành tiền</td>
                                         <td style="font-weight: bold; color: red; text-align: right;">
-                                            <%= Number(data.reduce((sum, item)=> Number(sum) + Number(item.price), 0)).toLocaleString('vi-VN')
+                                            <%= Number(data.reduce((sum, item)=> Number(sum) + (Number(item.price)*item.quantity), 0)).toLocaleString('vi-VN')
                                                 %>
                                                 <sup>đ</sup>
                                         </td>
