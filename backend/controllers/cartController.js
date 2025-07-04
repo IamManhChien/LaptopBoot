@@ -135,9 +135,9 @@ const cartController = {
             if (req.query.action == 'add') {
                 result.quantity += 1;
             } else if (req.query.action == 'sub') {
-                if (result.quantity>1)
+                if (result.quantity > 1)
                     result.quantity -= 1;
-                else{
+                else {
                     result.destroy();
                 }
             }
@@ -152,18 +152,16 @@ const cartController = {
         try {
             let result = await models.order_items.findAll({ where: { order_id: order.id } });
             let total_price = 0;
-            result.forEach(
-                async (item) => {
-                    total_price += item.quantity * item.price;
-                    let tmp = await models.products.findOne({ where: { id: item.product_id } });
-                    if (tmp.soluong >= item.quantity) {
-                        tmp.soluong = tmp.soluong - item.quantity;
-                        await tmp.save();
-                    } else {
-                        throw new Error(`San pham ${item.product_id} trong kho khong du`);
-                    }
+            for (const item of result) {
+                total_price += item.quantity * item.price;
+                const tmp = await models.products.findOne({ where: { id: item.product_id } });
+                if (tmp.soluong >= item.quantity) {
+                    tmp.soluong -= item.quantity;
+                    await tmp.save();
+                } else {
+                    throw new Error(`Sản phẩm ${item.product_id} trong kho không đủ`);
                 }
-            )
+            }
             order.total_price = total_price;
             order.payment_method = req.body.paymentMethod;
             order.shipping_address = req.body.address;
@@ -173,8 +171,7 @@ const cartController = {
             order = null;
             res.status(200).json({ order: order, order_item: result });
         } catch (error) {
-            console.log(error);
-            res.status(404).json(error)
+            res.status(404).json({err: `${error}`})
         }
     },
     getOrder: async (req, res) => {

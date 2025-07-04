@@ -389,8 +389,7 @@ app.post("/cart/checkout", async (req, res) => {
       res.redirect("/login");
     }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('Lỗi máy chủ');
+    res.status(500).send(error.response.data.err);
   }
 });
 
