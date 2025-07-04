@@ -27,7 +27,7 @@
                                         <td><img style="height: 150px; width: 150px;" class="product_image_cart" src="<%= item.product.img %>" alt=""></td>
                                         <td>
                                             <div style="display: flex; align-items: center; justify-content: space-between;">
-                                                <form style="border: none;" action="/cart/add/<%= item.product_id %>" method="get">
+                                                <form style="border: none;" action="/cart/sub/<%= item.product_id %>" method="get">
                                                     <button style="border: none;">
                                                         <img style="height: 15px; width: 15px;" src="/icons/minus.png" alt="">
                                                     </button>
@@ -35,7 +35,7 @@
                                             
                                                 <%= item.quantity %>
                                             
-                                                    <form style="border: none;" action="/cart/sub/<%= item.product_id %>" method="get">
+                                                    <form style="border: none;" action="/cart/add/<%= item.product_id %>" method="get">
                                                         <button style="border: none;">
                                                             <img style="height: 15px; width: 15px;" src="/icons/plus.png" alt="">
                                                         </button>
