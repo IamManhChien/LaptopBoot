@@ -2,7 +2,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import helpers from './helpers/format.js';
-import helpers from './helpers/format.js';
 
 const app = express();
 const port = 3000;
@@ -285,7 +284,7 @@ app.get("/cart/add/:id", async (req, res) => {
       const access_token = await axios.post(`${API_URL}/auth/refresh`, {
         refreshToken: `${req.headers.cookie.split("=")[1]}`
       });
-      const result = await axios.put(`${API_URL}/cart`, {
+      const result = await axios.put(`${API_URL}/cart`,null, {
         params: { product_id: productId, action: `add` },
         headers: {
           Authorization: `Bearer ${access_token.data}`
@@ -308,7 +307,7 @@ app.get("/cart/sub/:id", async (req, res) => {
       const access_token = await axios.post(`${API_URL}/auth/refresh`, {
         refreshToken: `${req.headers.cookie.split("=")[1]}`
       });
-      const result = await axios.put(`${API_URL}/cart`, {
+      const result = await axios.put(`${API_URL}/cart`,null, {
         params: { product_id: productId, action: `sub` },
         headers: {
           Authorization: `Bearer ${access_token.data}`
