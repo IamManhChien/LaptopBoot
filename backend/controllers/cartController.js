@@ -53,7 +53,6 @@ const cartController = {
                     total_price: 0
                 });
             }
-            console.log(req.body.product);
             let result = await models.order_items.findOne({ where: { order_id: order.id, product_id: req.body.product.id } });
             if (!result) {
                 result = await models.order_items.create({

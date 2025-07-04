@@ -49,19 +49,19 @@
                 </div>
             </div>
 
-            <form action="/pricefilter" method="get" class="price-filter">
+            <form action="" method="get" class="price-filter">
                 <div style="font-weight: 500; padding-left: 15px; margin-top: 10px; margin-bottom: 10px; border-top: solid 1px rgb(219, 216, 216);">Mức giá</div>
                 <div class="price-filter-checkbox">
-                    <label><input type="checkbox">Tất cả</label>
+                    <label><input type="radio" >Tất cả</label>
                 </div>
                 <div class="price-filter-checkbox">
-                    <label><input type="checkbox">Dưới 500k</label>
+                    <label><input type="radio" name="mucgia" value="0-500">Dưới 500k</label>
                 </div>
                 <div class="price-filter-checkbox">
-                    <label><input type="checkbox">Từ 500 - 600k</label>
+                    <label><input type="radio" name="mucgia" value="500-600">Từ 500 - 600k</label>
                 </div>
                 <div class="price-filter-checkbox">
-                    <label><input type="checkbox">Trên 600k</label>
+                    <label><input type="radio" name="mucgia" value="tren-600">Trên 600k</label>
                 </div>
                 <div style="padding-left: 10px; margin-top: 10px;">
                     <button class="pricefiltersubmit" type="submit">Áp dụng</button>

@@ -26,6 +26,16 @@ DB_USER = <username>
 DB_PASS = <password>
 DB_HOST = 'localhost'
 ```
+### Cách2
+Copy truy vấn được viết trong file db_backup2.sql vào PostgresSQL:
+
+Config file .env
+```
+DB_NAME = <database_name>
+DB_USER = <username>
+DB_PASS = <password>
+DB_HOST = 'localhost'
+```
 
 ## Khởi động
 

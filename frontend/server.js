@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
 import helpers from './helpers/format.js';
+import helpers from './helpers/format.js';
 
 const app = express();
 const port = 3000;
@@ -39,7 +40,7 @@ app.get("/", async (req, res) => {
           console.log(err);
         });
     }
-    res.render("homepage.ejs", { helpers,pcs: pcs.data, cameras: cameras.data, tops: tops.data });
+    res.render("homepage.ejs", { helpers, pcs: pcs.data, cameras: cameras.data, tops: tops.data });
   } catch (error) {
     console.log(error);
   }
@@ -47,8 +48,10 @@ app.get("/", async (req, res) => {
 
 app.get("/laptop", async (req, res) => {
   try {
-    const pcs = await axios.get(`${API_URL}/laptop`);
-    res.render("laptop.ejs", { helpers,pcs: pcs.data });
+    const params = {};
+    if (req.query.mucgia) params.mucGia = req.query.mucgia;
+    const pcs = await axios.get(`${API_URL}/laptop`, { params: params });
+    res.render("laptop.ejs", { helpers, pcs: pcs.data });
   } catch (error) {
     console.log(error);
   }
@@ -58,10 +61,10 @@ app.get("/laptop/:brand", async (req, res) => {
   try {
     const params = {};
     params.brand = req.params.brand
-    if (req.params.mucGia) params.mucGia = mucGia;
+    if (req.query.mucgia) params.mucGia = req.query.mucgia;
     const pcs = await axios.get(`${API_URL}/laptop/:brand`, { params: params });
-    res.render("laptop.ejs", { helpers,pcs: pcs.data });
-    // res.json(params);
+    res.render("laptop.ejs", { helpers, pcs: pcs.data });
+    // res.json(pcs.data);
   } catch (error) {
     console.log(error);
   }
@@ -69,8 +72,10 @@ app.get("/laptop/:brand", async (req, res) => {
 
 app.get("/camera", async (req, res) => {
   try {
-    const cameras = await axios.get(`${API_URL}/camera`);
-    res.render("camera.ejs", { helpers,cameras: cameras.data });
+    const params = {};
+    if (req.query.mucgia) params.mucGia = req.query.mucgia;
+    const cameras = await axios.get(`${API_URL}/camera`, { params: params });
+    res.render("camera.ejs", { helpers, cameras: cameras.data });
   } catch (error) {
     console.log(error);
   }
@@ -79,10 +84,23 @@ app.get("/camera", async (req, res) => {
 app.get("/camera/:brand", async (req, res) => {
   try {
     const params = {};
-    params.brand = req.params.brand;
-    if (req.params.mucGia) params.mucGia = mucGia;
+    params.brand = req.params.brand
+    if (req.query.mucgia) params.mucGia = req.query.mucgia;
     const cameras = await axios.get(`${API_URL}/camera/:brand`, { params: params });
-    res.render("camera.ejs", { helpers,cameras: cameras.data });
+    res.render("camera.ejs", { helpers, cameras: cameras.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/camera/:brand", async (req, res) => {
+  try {
+    const mucGia = req.params.mucGia;
+    const params = {};
+    if (mucGia) params.muc_gia = mucGia;
+    // if (nhuCau) params.nhu_cau = nhuCau;
+    const cameras = await axios.get(`${API_URL}/camera/:brand`, { params: params });
+    res.render("camera.ejs", { cameras: cameras.data });
   } catch (error) {
     console.log(error);
   }
@@ -177,7 +195,7 @@ app.get("/product/:id", async (req, res) => {
     if (result.data.length === 0) {
       return res.status(404).send('Sản phẩm không tồn tại');
     }
-    res.render('Product.ejs', { helpers,product: result.data[0], message: "" });
+    res.render('Product.ejs', { helpers, product: result.data[0], message: "" });
   } catch (error) {
     console.error(error);
     res.status(500).send('Lỗi máy chủ');
@@ -219,7 +237,7 @@ app.post("/cart", async (req, res) => {
           Authorization: `Bearer ${access_token.data}`
         }
       });
-      res.status(200).render('Product.ejs', { helpers,product: product, message: "Đã thêm vào giỏ hàng" });
+      res.status(200).render('Product.ejs', { helpers, product: product, message: "Đã thêm vào giỏ hàng" });
     } else {
       res.redirect("/login");
     }
@@ -268,7 +286,7 @@ app.get("/cart/add/:id", async (req, res) => {
         refreshToken: `${req.headers.cookie.split("=")[1]}`
       });
       const result = await axios.put(`${API_URL}/cart`, {
-        params: { product_id: productId ,action: `add`},
+        params: { product_id: productId, action: `add` },
         headers: {
           Authorization: `Bearer ${access_token.data}`
         }
@@ -291,7 +309,7 @@ app.get("/cart/sub/:id", async (req, res) => {
         refreshToken: `${req.headers.cookie.split("=")[1]}`
       });
       const result = await axios.put(`${API_URL}/cart`, {
-        params: { product_id: productId ,action: `sub`},
+        params: { product_id: productId, action: `sub` },
         headers: {
           Authorization: `Bearer ${access_token.data}`
         }
