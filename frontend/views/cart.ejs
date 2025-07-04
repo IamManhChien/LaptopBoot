@@ -26,7 +26,21 @@
                                         </td>
                                         <td><img style="height: 150px; width: 150px;" class="product_image_cart" src="<%= item.product.img %>" alt=""></td>
                                         <td>
-                                            <%= item.quantity %>
+                                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                                <form style="border: none;" action="/cart/sub/<%= item.product_id %>" method="get">
+                                                    <button style="border: none;">
+                                                        <img style="height: 15px; width: 15px;" src="/icons/minus.png" alt="">
+                                                    </button>
+                                                </form>
+                                            
+                                                <%= item.quantity %>
+                                            
+                                                    <form style="border: none;" action="/cart/sub/<%= item.product_id %>" method="get">
+                                                        <button style="border: none;">
+                                                            <img style="height: 15px; width: 15px;" src="/icons/plus.png" alt="">
+                                                        </button>
+                                                    </form>
+                                            </div>
                                         </td>
                                         <td style="color: red; font-weight: bold;">
                                             <%= Number(item.price).toLocaleString('vi-VN') %> <sup>đ</sup>
